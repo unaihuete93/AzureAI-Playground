@@ -14,7 +14,8 @@
 			"extensions": [
 				"GitHub.copilot",
 				"ms-toolsai.jupyter",
-				"GitHub.copilot-chat"
+				"GitHub.copilot-chat",
+				"KevinRose.vsc-python-indent"
 			]
 		}
 	},
