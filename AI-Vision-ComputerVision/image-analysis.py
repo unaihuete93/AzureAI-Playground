@@ -1,3 +1,6 @@
+## GENERIC IMAGE ANALYSIS PYTHON APPLICATION
+## OUTPUT: Image Analysis (console), Object Detection, People Detection, Background Removal, Foreground Matte
+
 #from dotenv import load_dotenv
 import os
 from array import array

@@ -1,0 +1,20 @@
+## REFERENCE API https://learn.microsoft.com/en-us/rest/api/computervision/operation-groups?view=rest-computervision-v3.1 
+
+### VERSION 4 COMPLETE REQUEST FOR MOST FEATURES
+@features=tags, objects, caption, denseCaptions, read, smartCrops, people
+@model-version=latest
+@details=Celebrities,Landmarks
+@language=en
+
+@imageUrl="https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
+
+# satya: "https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
+POST {{$processEnv AIVISION_ENDPOINT}}/computervision/imageanalysis:analyze?{{features}}={{{{features}}}}&{{model-version}}={{{{model-version}}}}&language={{language}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIVISION_KEY}}
+
+{
+  "url": {{imageUrl}}
+}
+
+

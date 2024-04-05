@@ -15,7 +15,8 @@
 				"GitHub.copilot",
 				"ms-toolsai.jupyter",
 				"GitHub.copilot-chat",
-				"KevinRose.vsc-python-indent"
+				"KevinRose.vsc-python-indent",
+				"humao.rest-client"
 			]
 		}
 	},
