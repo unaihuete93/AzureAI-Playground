@@ -1,15 +1,18 @@
-## REFERENCE API https://learn.microsoft.com/en-us/rest/api/computervision/operation-groups?view=rest-computervision-v3.1 
+## REFERENCE API https://eastus.dev.cognitive.microsoft.com/docs/services/Cognitive_Services_Unified_Vision_API_2024-02-01/operations/61d65934cd35050c20f73ab6
 
+### NOTE request history shows command with the used variables!
+@Endpoint=https://ai050-cv-unai.cognitiveservices.azure.com
 ### VERSION 4 COMPLETE REQUEST FOR MOST FEATURES
-@features=tags, objects, caption, denseCaptions, read, smartCrops, people
+@features=tags,objects,caption,denseCaptions,read,smartCrops,people
 @model-version=latest
 @details=Celebrities,Landmarks
 @language=en
+@api-version=2024-02-01
 
 @imageUrl="https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
 
 # satya: "https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
-POST {{$processEnv AIVISION_ENDPOINT}}/computervision/imageanalysis:analyze?{{features}}={{{{features}}}}&{{model-version}}={{{{model-version}}}}&language={{language}}
+POST {{Endpoint}}/computervision/imageanalysis:analyze?api-version={{api-version}}&features={{features}}&model-version={{model-version}}&language={{language}}
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIVISION_KEY}}
 
