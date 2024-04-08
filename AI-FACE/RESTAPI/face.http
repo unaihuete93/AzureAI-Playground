@@ -32,7 +32,7 @@
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://s.hs-data.com/bilder/spieler/gross/290844.jpg"
+@imageUrl="https://i.dailymail.co.uk/1s/2023/04/21/11/70085331-11998693-image-m-43_1682071341003.jpg"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -58,3 +58,21 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
   "faceId2": {{faceId2}}
 }
 
+### Identify - FaceID and PersonGroup
+
+#get one calling detect
+@faceId="121b466b-a486-4eab-80a1-34f48ee7c831"
+@personGroupId=real-sociedad
+
+
+POST {{Endpoint}}/face/v1.0/identify?
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "faceIds": [{{faceId}}],
+  "personGroupId": "{{personGroupId}}"
+}
+
+# MIKEL OYARZABAL - 5dba1ea2-e706-4f13-8e1e-e838689003d5
+# MARTIN ZUBIMENDI - ba9cb60d-8ff7-49e1-b037-c6a4ab80b3ad

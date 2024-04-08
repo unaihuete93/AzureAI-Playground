@@ -109,3 +109,13 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
   "url": {{image2}}
 }
 
+### TRAIN PERSON GROUP
+@personGroupId=real-sociedad
+
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/train
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
