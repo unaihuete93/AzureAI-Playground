@@ -3,3 +3,4 @@ azure-ai-vision==0.15.1b1
 pillow
 matplotlib
 numpy
+azure-cognitiveservices-vision-face==0.6.0
