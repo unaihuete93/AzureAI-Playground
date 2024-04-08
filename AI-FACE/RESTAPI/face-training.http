@@ -1,0 +1,111 @@
+############### TRAIN FACE SERVICE
+### NOTE request history shows command with the used variables!
+@Endpoint=https://ai102faceunai.cognitiveservices.azure.com
+
+### CREATE PERSON GROUP
+
+@personGroupId=real-sociedad
+
+PUT {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "name": "Real Sociedad",
+  "userData": "Real Sociedad Football Club",
+  "recognitionModel": "recognition_03"
+}
+
+### GET PERSON GROUP
+@personGroupId=real-sociedad
+
+GET {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
+### LIST PERSONS IN GROUP
+@personGroupId=real-sociedad
+
+GET {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
+
+### DELETE PERSON IN GROUP
+@personGroupId=real-sociedad
+@personId=b7ed1699-cbec-4db7-bc9c-13c3512a75f6
+
+DELETE {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
+
+### CREATE PERSON 1 - MIKEL OYARZABAL
+
+@personGroupId=real-sociedad
+
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "name": "Mikel Oyarzabal",
+  "userData": "Mikel Oyarzabal",
+  "recognitionModel": "recognition_03"
+}
+
+
+
+### ADD FACE TO PERSON 1 - MIKEL OYARZABAL
+@personId1=5dba1ea2-e706-4f13-8e1e-e838689003d5
+
+@image1="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+@image2="https://s.hs-data.com/bilder/spieler/gross/290844.jpg"
+
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId1}}/persistedFaces
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "url": {{image2}}
+}
+
+### CREATE PERSON 1 - MARTIN ZUBIMENDI
+
+@personGroupId=real-sociedad
+
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "name": "Martin Zubimendi",
+  "userData": "Martin Zubimendi",
+  "recognitionModel": "recognition_03"
+}
+
+
+
+### ADD FACE TO PERSON 1 - MARTIN ZUBIMENDI
+@personId1=ba9cb60d-8ff7-49e1-b037-c6a4ab80b3ad
+
+@image1="https://th.bing.com/th/id/OIP.jbMJjsG79JtkzUhotoOnmAHaIC?rs=1&pid=ImgDetMain"
+@image2="https://th.bing.com/th/id/R.1e8ba36e99def5f9db9e25b946f3f089?rik=LbRv%2bU38Qya5RA&pid=ImgRaw&r=0"
+
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId1}}/persistedFaces
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "url": {{image2}}
+}
+

@@ -3,13 +3,17 @@
 #INCLUDED DEMOS
 # 1. Detect - FaceID and Face Attributes
 # 2. Verify - FaceID and FaceID
+# 3. Identify - FaceID vs PersonGroup
+  # Training done in the other file! 
 
 
 # IMAGES USED
 # 1. MIKEL OYARZABAL
   # https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1
-  # 
+  # https://s.hs-data.com/bilder/spieler/gross/290844.jpg
 # 2. MARTIN ZUBIMENDI
+  # https://th.bing.com/th/id/OIP.jbMJjsG79JtkzUhotoOnmAHaIC?rs=1&pid=ImgDetMain
+  # https://th.bing.com/th/id/R.1e8ba36e99def5f9db9e25b946f3f089?rik=LbRv%2bU38Qya5RA&pid=ImgRaw&r=0
 # 3. SATYA NADELLA  https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain
 
 
@@ -28,7 +32,7 @@
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+@imageUrl="https://s.hs-data.com/bilder/spieler/gross/290844.jpg"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -41,22 +45,16 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 ### Verify - FaceID and FaceID
 
-@returnFaceId=true
-@returnFaceLandmarks=true
-@returnFaceAttributes=accessories,blur,exposure,glasses,headpose,noise, qualityForRecognition
+@faceId1="2f03b677-a5eb-498b-b8c2-f501e136db6a"
+@faceId2="67d88927-33bf-435d-9ff2-8e094c559bbb"
 
-@recognitionModel=recognition_03
-# default 24 hours (60s to 86400s)
-@faceIdTimeToLive = 86400 
 
-@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
-
-POST {{Endpoint}}/face/v1.0/verify?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
+POST {{Endpoint}}/face/v1.0/verify?
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 {
-  "url": {{imageUrl}}
+  "faceId1": {{faceId1}},
+  "faceId2": {{faceId2}}
 }
-
 
