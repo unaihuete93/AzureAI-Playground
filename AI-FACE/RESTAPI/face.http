@@ -1,0 +1,62 @@
+# REFERENCE DOC https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+
+#INCLUDED DEMOS
+# 1. Detect - FaceID and Face Attributes
+# 2. Verify - FaceID and FaceID
+
+
+# IMAGES USED
+# 1. MIKEL OYARZABAL
+  # https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1
+  # 
+# 2. MARTIN ZUBIMENDI
+# 3. SATYA NADELLA  https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain
+
+
+### NOTE request history shows command with the used variables!
+@Endpoint=https://ai102faceunai.cognitiveservices.azure.com
+
+-----------------
+
+### Detect - FaceID and Face Attributes
+
+@returnFaceId=true
+@returnFaceLandmarks=true
+@returnFaceAttributes=accessories,blur,exposure,glasses,headpose,noise, qualityForRecognition
+
+@recognitionModel=recognition_03
+# default 24 hours (60s to 86400s)
+@faceIdTimeToLive = 86400 
+
+@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+
+POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "url": {{imageUrl}}
+}
+
+
+### Verify - FaceID and FaceID
+
+@returnFaceId=true
+@returnFaceLandmarks=true
+@returnFaceAttributes=accessories,blur,exposure,glasses,headpose,noise, qualityForRecognition
+
+@recognitionModel=recognition_03
+# default 24 hours (60s to 86400s)
+@faceIdTimeToLive = 86400 
+
+@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+
+POST {{Endpoint}}/face/v1.0/verify?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  "url": {{imageUrl}}
+}
+
+
