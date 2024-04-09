@@ -1,5 +1,6 @@
 # Python app calling Azure AI Face service using latest SDK
 # The app will offer detect, identify and verify functionalities
+# Identify training done using REST API calls (other file)
 
 import asyncio
 import io
@@ -34,7 +35,9 @@ face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 image1_url = 'https://th.bing.com/th/id/R.af8213b382b4ba18fd237f9d2c8ae956?rik=TsVObSO%2bIxq0ag&pid=ImgRaw&r=0'
 
 def detect_face(face_client, url):
-    detected_faces = face_client.face.detect_with_url(url)
+    # We use detection model 3 to get better performance, recognition model 4 to support quality for recognition attribute.
+    # SAME AS USED ON PERSONGROUP TRAINING!!
+    detected_faces = face_client.face.detect_with_url(url,detection_model='detection_03', recognition_model='recognition_04')
     if not detected_faces:
         raise Exception('No face detected from image')
     print (f'Face detected with id: {detected_faces[0].face_id}')
@@ -44,9 +47,20 @@ def verify_face(face_client, face_id1, face_id2):
     verify_result_same = face_client.face.verify_face_to_face(face_id1, face_id2)
     return verify_result_same.is_identical, verify_result_same.confidence
 
+
 def identify_face(face_client, faceid, person_group_id):
-    identify_result = face_client.face.identify([faceid], person_group_id)
-    print (f'Identify result: {identify_result}')
+    face_ids = [faceid]
+    identify_result = face_client.face.identify(face_ids, person_group_id)
+    if not identify_result:
+        print('No person identified in the person group')
+    for identifiedFace in identify_result:
+        if len(identifiedFace.candidates) > 0:
+            # print personid found
+            print(f'PersonId identified: {identifiedFace.candidates[0].person_id}')
+            # Get person name
+            person = face_client.person_group_person.get(person_group_id, identifiedFace.candidates[0].person_id)
+            print(f'Person name: {person.name}')
+    return identify_result
 
 if __name__ == "__main__":
     print("Select an option:")
@@ -68,12 +82,13 @@ if __name__ == "__main__":
         is_identical, confidence = verify_face(face_client, face_id1, face_id2)
         print(f'Faces are identical: {is_identical}')
         print(f'Confidence: {confidence}')
-    # elif option == 3:
-    #     personGroupId = "real-sociedad" #change if needed
-    #     image1_url = str(input("Provide image URL face to identify: "))
-    #     face_id1 = detect_face(face_client, image1_url)
-        
-    #     identify_result = identify_face(face_client, face_id1, personGroupId)
+    elif option == 3:
+        personGroupId = "real-sociedad" #change if needed
+        # Test Martin Zubimendi https://img.uefa.com/imgml/TP/players/14/2021/324x324/250143679.jpg
+        image1_url = str(input("Provide image URL face to identify: "))
+        face_id1 = detect_face(face_client, image1_url)
+        # Identify face
+        identify_result = identify_face(face_client, face_id1, personGroupId)
         
         
     else:

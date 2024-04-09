@@ -28,11 +28,11 @@
 @returnFaceLandmarks=true
 @returnFaceAttributes=accessories,blur,exposure,glasses,headpose,noise, qualityForRecognition
 
-@recognitionModel=recognition_03
+@recognitionModel=recognition_04
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://i.dailymail.co.uk/1s/2023/04/21/11/70085331-11998693-image-m-43_1682071341003.jpg"
+@imageUrl="https://th.bing.com/th/id/OIP.soZOT-QCbo-CM0WX-47W1wAAAA?rs=1&pid=ImgDetMain"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -61,7 +61,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 ### Identify - FaceID and PersonGroup
 
 #get one calling detect
-@faceId="121b466b-a486-4eab-80a1-34f48ee7c831"
+@faceId="89d1bf91-fabd-437e-819b-d8af742b45c2"
 @personGroupId=real-sociedad
 
 

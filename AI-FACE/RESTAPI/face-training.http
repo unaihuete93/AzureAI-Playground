@@ -5,6 +5,8 @@
 ### CREATE PERSON GROUP
 
 @personGroupId=real-sociedad
+@recognitionModel=recognition_04
+@detectionModel=detection_03
 
 PUT {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}
 Content-Type: application/json
@@ -13,7 +15,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 {
   "name": "Real Sociedad",
   "userData": "Real Sociedad Football Club",
-  "recognitionModel": "recognition_03"
+  "recognitionModel": "{{recognitionModel}}"
 }
 
 ### GET PERSON GROUP
@@ -26,6 +28,20 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 {
   
 }
+
+### DELETE PERSON GROUP
+@personGroupId=real-sociedad
+
+DELETE {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
+
+
+
 ### LIST PERSONS IN GROUP
 @personGroupId=real-sociedad
 
@@ -66,12 +82,12 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 
 ### ADD FACE TO PERSON 1 - MIKEL OYARZABAL
-@personId1=5dba1ea2-e706-4f13-8e1e-e838689003d5
 
+@p=6eade3c8-5800-44a6-92fc-427e19ab14cc
 @image1="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
 @image2="https://s.hs-data.com/bilder/spieler/gross/290844.jpg"
 
-POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId1}}/persistedFaces
+POST {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{p}}/persistedFaces?detectionModel={{detectionModel}}
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
@@ -96,7 +112,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 
 ### ADD FACE TO PERSON 1 - MARTIN ZUBIMENDI
-@personId1=ba9cb60d-8ff7-49e1-b037-c6a4ab80b3ad
+@personId1=2dd6a33d-e9c0-4f99-82fd-12691a06970a
 
 @image1="https://th.bing.com/th/id/OIP.jbMJjsG79JtkzUhotoOnmAHaIC?rs=1&pid=ImgDetMain"
 @image2="https://th.bing.com/th/id/R.1e8ba36e99def5f9db9e25b946f3f089?rik=LbRv%2bU38Qya5RA&pid=ImgRaw&r=0"
@@ -119,3 +135,20 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 {
   
 }
+
+
+### DELETE PERSON FACE
+
+@personGroupId=real-sociedad
+@personId=5dba1ea2-e706-4f13-8e1e-e838689003d5
+@persistedFaceId=fd95b97e-e227-48c7-8772-506e46aeae75
+
+DELETE {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId}}/persistedFaces/{{persistedFaceId}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
+
+{
+  
+}
+
+
