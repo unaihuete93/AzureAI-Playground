@@ -1,0 +1,66 @@
+#INCLUDED DEMOS
+# 1. 
+# 2. 
+
+### 1. Get List of Languages supported by the API
+@endpoint=https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
+
+GET {{endpoint}}
+
+### 2. Detect Language
+
+@endpoint2=https://api.cognitive.microsofttranslator.com/detect?api-version=3.0
+@region=northeurope
+
+POST {{endpoint2}}
+Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
+Ocp-Apim-Subscription-Region: {{region}}
+Content-Type: application/json
+
+[
+    {"Text":"Ongi etorri gaurko klasera"}
+]
+
+
+### 3. Translate 
+
+@endpoint3=https://api.cognitive.microsofttranslator.com/translate?api-version=3.0
+@region=northeurope
+
+#optional, it can autodetect the language
+@from=en
+#multiple "to" could be added to translate to multiple languages
+@to=es
+#profanityAction=Marked, Deleted, NoAction
+@profanityAction=Marked
+@profanityMarker=Asterisk
+
+@includeAlignment=true
+@includeSentenceLength=true
+
+
+POST {{endpoint3}}&from={{from}}&to={{to}}&profanityAction={{profanityAction}}&profanityMarker={{profanityMarker}}&includeAlignment={{includeAlignment}}&includeSentenceLength={{includeSentenceLength}}
+Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
+Ocp-Apim-Subscription-Region: {{region}}
+Content-Type: application/json
+
+[
+    {"Text":"Give me the fucking time"}
+]
+
+### 4. Transliterate
+
+@endpoint=https://api.cognitive.microsofttranslator.com/transliterate?api-version=3.0
+
+@toScript=Latn
+@fromScript=Jpan
+@language=ja
+POST {{endpoint}}&language={{language}}&toScript={{toScript}}&fromScript={{fromScript}}
+Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
+Ocp-Apim-Subscription-Region: {{region}}
+Content-Type: application/json
+
+[
+    {"Text":"こんにちは"},
+    {"Text":"さようなら"}
+]
