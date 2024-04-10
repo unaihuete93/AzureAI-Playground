@@ -1,0 +1,209 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "width": 800,
+      "height": 800,
+      "file_name": "second-2023-1.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/second-2023-1.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/second-2023-1.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765788Z"
+    },
+    {
+      "id": 2,
+      "width": 634,
+      "height": 800,
+      "file_name": "second-2023-2.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/second-2023-2.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/second-2023-2.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765735Z"
+    },
+    {
+      "id": 3,
+      "width": 1000,
+      "height": 1000,
+      "file_name": "third-2023-2.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/third-2023-2.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/third-2023-2.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765812Z"
+    },
+    {
+      "id": 4,
+      "width": 600,
+      "height": 600,
+      "file_name": "first-2023-1.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/first-2023-1.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/first-2023-1.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765711Z"
+    },
+    {
+      "id": 5,
+      "width": 1200,
+      "height": 1200,
+      "file_name": "first-2023-2.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/first-2023-2.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/first-2023-2.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765612Z"
+    },
+    {
+      "id": 6,
+      "width": 600,
+      "height": 600,
+      "file_name": "second-2023-3.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/second-2023-3.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/second-2023-3.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765763Z"
+    },
+    {
+      "id": 7,
+      "width": 600,
+      "height": 600,
+      "file_name": "third-2023-1.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/third-2023-1.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/third-2023-1.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765837Z"
+    },
+    {
+      "id": 8,
+      "width": 800,
+      "height": 800,
+      "file_name": "third-2023-3.jpg",
+      "coco_url": "AmlDatastore://realsociedad_datastore/third-2023-3.jpg",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/third-2023-3.jpg",
+      "date_captured": "2024-04-10T09:57:05.5765687Z"
+    },
+    {
+      "id": 9,
+      "width": 1920,
+      "height": 1080,
+      "file_name": "first-2023-3.png",
+      "coco_url": "AmlDatastore://realsociedad_datastore/first-2023-3.png",
+      "absolute_url": "https://aivisioncustomnewsa.blob.core.windows.net/real-sociedad/first-2023-3.png",
+      "date_captured": "2024-04-10T09:57:05.5765659Z"
+    }
+  ],
+  "annotations": [
+    {
+      "id": 1,
+      "category_id": 2,
+      "image_id": 1,
+      "area": 0.932,
+      "bbox": [
+        0.013424580582731762,
+        0.023302953656321238,
+        0.9665653495440729,
+        0.9645390380117306
+      ]
+    },
+    {
+      "id": 2,
+      "category_id": 2,
+      "image_id": 2,
+      "area": 0.787,
+      "bbox": [
+        0.06790587631134913,
+        0.05465116279069768,
+        0.8642065879245837,
+        0.9104651162790698
+      ]
+    },
+    {
+      "id": 3,
+      "category_id": 3,
+      "image_id": 3,
+      "area": 0.555,
+      "bbox": [
+        0.20174418604651162,
+        0.06395348837209303,
+        0.6093023255813954,
+        0.9104651162790698
+      ]
+    },
+    {
+      "id": 4,
+      "category_id": 1,
+      "image_id": 4,
+      "area": 0.663,
+      "bbox": [
+        0.17732558139534885,
+        0.015116279069767442,
+        0.6918604651162791,
+        0.958139534883721
+      ]
+    },
+    {
+      "id": 5,
+      "category_id": 1,
+      "image_id": 5,
+      "area": 0.515,
+      "bbox": [
+        0.21504559270516718,
+        0.07193517250130604,
+        0.5835866261398176,
+        0.8824721687108188
+      ]
+    },
+    {
+      "id": 6,
+      "category_id": 2,
+      "image_id": 6,
+      "area": 0.589,
+      "bbox": [
+        0.18667686021799013,
+        0.03140829254428666,
+        0.6382978723404256,
+        0.9229990486678381
+      ]
+    },
+    {
+      "id": 7,
+      "category_id": 3,
+      "image_id": 7,
+      "area": 0.653,
+      "bbox": [
+        0.15121580547112462,
+        0.03951367781155015,
+        0.701114550187595,
+        0.9311043411765055
+      ]
+    },
+    {
+      "id": 8,
+      "category_id": 3,
+      "image_id": 8,
+      "area": 0.59,
+      "bbox": [
+        0.14709302325581394,
+        0.08837209302325581,
+        0.7232558139534884,
+        0.8151162790697675
+      ]
+    },
+    {
+      "id": 9,
+      "category_id": 1,
+      "image_id": 9,
+      "area": 0.256,
+      "bbox": [
+        0.27701232777374907,
+        0.35303359922649263,
+        0.4002900652646846,
+        0.6394327612601725
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "first"
+    },
+    {
+      "id": 2,
+      "name": "second"
+    },
+    {
+      "id": 3,
+      "name": "third"
+    }
+  ]
+}

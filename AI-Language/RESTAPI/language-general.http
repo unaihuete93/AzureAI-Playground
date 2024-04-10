@@ -1,0 +1,167 @@
+#INCLUDED DEMOS
+# 1. Entity Linking
+# 2. Entity Recognition
+# 3. Key Phrase Extraction
+# 4. Language Detection
+# 5. PII Recognition
+# 6. Sentiment Analysis
+
+@api-version=2023-04-01
+@endpoint=https://languageunaicustomclassify.cognitiveservices.azure.com
+
+### 1. Entity Linking
+
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "EntityLinking",
+  "parameters": {
+    "modelVersion": "latest"
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "language": "en",
+        "text": "Microsoft was founded by Bill Gates and Paul Allen."
+      }
+    ]
+  }
+}
+
+### 2. Entity Recognition
+
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "EntityRecognition",
+  "parameters": {
+    "modelVersion": "latest"
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "language": "en",
+        "text": "Microsoft was founded by Bill Gates and Paul Allen."
+      }
+    ]
+  }
+}
+
+### 3. Key Phrase Extraction
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "KeyPhraseExtraction",
+  "parameters": {
+    "modelVersion": "latest"
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "language": "en",
+        "text": "Microsoft was founded by Bill Gates and Paul Allen."
+      },
+      {
+        "id": "2",
+        "language": "en",
+        "text": "Text Analytics is one of the Azure Cognitive Services."
+      },
+      {
+        "id": "3",
+        "language": "en",
+        "text": "My cat might need to see a veterinarian."
+      }
+    ]
+  }
+}
+
+### 4. Language Detection
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "LanguageDetection",
+  "parameters": {
+    "modelVersion": "latest"
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "text": "Hello world"
+      },
+      {
+        "id": "2",
+        "text": "Bonjour tout le monde"
+      },
+      {
+        "id": "3",
+        "text": "Hola mundo"
+      },
+      {
+        "id": "4",
+        "text": "Eguraldi ederra egiten du gaur"
+      }
+    ]
+  }
+}
+
+### 5. PII Recognition
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "PiiEntityRecognition",
+  "parameters": {
+    "modelVersion": "latest"
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "language": "en",
+        "text": "My SSN is 859-98-0987"
+      },
+      {
+        "id": "2",
+        "language": "en",
+        "text": "Your ABA number - 111000025 - is the first 9 digits in the lower left hand corner of your personal check."
+      }
+    ]
+  }
+}
+
+### 6. Sentiment Analysis
+POST {{endpoint}}/language/:analyze-text?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
+
+{
+  "kind": "SentimentAnalysis",
+  "parameters": {
+    "modelVersion": "latest",
+    "opinionMining": true
+  },
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "language": "en",
+        "text": "The food was delicious and there was wonderful staff."	
+      }
+    ]
+  }
+}
+
+
