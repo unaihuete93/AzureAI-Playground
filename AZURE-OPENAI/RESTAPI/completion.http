@@ -1,0 +1,43 @@
+# quick RESTAPI demos of completion API for Azure OpenAI older models
+
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+
+
+
+@api-version=2023-09-15-preview
+
+------- Completions with Davinci models --------
+
+### 1. Simple Call
+
+@deploymentName=davinci-002
+
+#play with temperature, 0 same results, 1 more creative (different)
+@temperature=1
+
+POST {{endpoint}}openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+content-type:application/json
+api-key:{{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Once upon a time",
+    "max_tokens": 50,
+    "temperature": {{temperature}}
+}
+
+### 2. Stop Sequence technique
+
+@deploymentName=davinci-002
+
+POST {{endpoint}}openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+content-type:application/json
+api-key:{{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Spanish: Hola \n English: Hello \n French:",
+    "max_tokens": 50,
+    "stop": ["\n"]
+}
+# Finish reason is "stop" for the stop sequence
+
+
