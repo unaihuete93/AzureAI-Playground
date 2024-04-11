@@ -1,0 +1,56 @@
+# INCLUDED DEMOS
+
+@endpoint= https://langauge-completedemo.cognitiveservices.azure.com
+@projectName= QnA-Test
+
+#portal version is the "test" version!!
+@deploymentName= production 
+
+
+### 1. Not related call - Chitchat
+
+POST {{endpoint}}/language/:query-knowledgebases?projectName={{projectName}}&api-version=2021-10-01&deploymentName={{deploymentName}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
+
+
+{
+  "question": "how are you?",
+  "top": 2
+}
+
+### 2. Request with follow up prompt
+POST {{endpoint}}/language/:query-knowledgebases?projectName={{projectName}}&api-version=2021-10-01&deploymentName={{deploymentName}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
+
+
+{
+  "question": "Is company data used for your models?",
+  "top": 1
+}
+
+### 3. Test a synonym (AI Service - Cognitive Services)
+POST {{endpoint}}/language/:query-knowledgebases?projectName={{projectName}}&api-version=2021-10-01&deploymentName={{deploymentName}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
+
+
+{
+  "question": "Any difference between AI services in the cloud and containers?",
+  "top": 1
+}
+
+### 4. Test the portal version - staging
+# The following question was added manually, not deployed yet
+@deploymentName=test
+
+POST {{endpoint}}/language/:query-knowledgebases?projectName={{projectName}}&api-version=2021-10-01&deploymentName={{deploymentName}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
+
+
+{
+  "question": "Can you reply from the portal version only?",
+  "top": 1
+}

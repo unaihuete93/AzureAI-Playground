@@ -1,5 +1,9 @@
 # quick RESTAPI demos of completion API for Azure OpenAI older models
 
+# INCLUDED DEMOS
+# 1. Simple Call
+# 2. Stop Sequence technique
+
 @endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
 
 
