@@ -1,0 +1,23 @@
+### Translate (no custom) 
+
+@endpoint3=https://api.cognitive.microsofttranslator.com/translate?api-version=3.0
+@region=northeurope
+
+#optional, it can autodetect the language
+@from=en
+#multiple "to" could be added to translate to multiple languages
+@to=es
+
+
+POST {{endpoint3}}&from={{from}}&to={{to}}
+Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
+Ocp-Apim-Subscription-Region: {{region}}
+Content-Type: application/json
+
+[
+    {"Text":"A prompt is the input given to Generative AI models, whereas the completion is the output. Embedding model represent your prompt using a multidimensional vector."}
+]
+
+#RESULT "Un prompt es la entrada que se da a los modelos de IA generativa, mientras que la finalización es el resultado. El modelo de incrustación representa la solicitud mediante un vector multidimensional."
+
+### CUSTOM TRANSLATION

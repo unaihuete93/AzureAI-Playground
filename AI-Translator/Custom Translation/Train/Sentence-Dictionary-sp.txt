@@ -1,0 +1,10 @@
+Azure OpenAI proporciona modelos de IA para tareas como la traducción y la generación de texto. 
+Los desarrolladores utilizan la API de Azure OpenAI para integrar la IA en sus aplicaciones. 
+Azure OpenAI utiliza modelos de machine learning entrenados en texto de internet diverso. 
+Azure OpenAI puede automatizar tareas y mejorar los servicios al cliente. 
+El modelo GPT-3 de Azure OpenAI puede responder preguntas y generar texto. 
+Los prompts se utilizan como entradas para guiar la generación de texto de Azure OpenAI. 
+Las completions son las salidas generadas por Azure OpenAI en respuesta a los prompts.
+Los embeddings en Azure OpenAI representan palabras o frases en forma numérica. 
+Azure OpenAI se puede utilizar para crear chatbots y generar código. 
+Los modelos de Azure OpenAI se actualizan continuamente para mejorar el rendimiento.
