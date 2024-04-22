@@ -1,0 +1,28 @@
+## language container running on top of Azure Container Instance
+## Follow lab https://microsoftlearning.github.io/mslearn-ai-services/Instructions/Exercises/04-use-a-container.html
+@aci-public-ip=20.76.89.234
+
+#image mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest
+
+# UNSTABLE FOR ME, STOP ACI AFTER DEMO
+
+
+POST http://{{aci-public-ip}}:5000/text/analytics/v3.0/languages?model-version=latest
+Content-Type: application/json
+
+{
+  "documents": [
+    {
+      "text": "Microsoft is located at Redmond, WA.",
+      "id": "1"
+    },
+    {
+      "text": "Bonjour tout le monde",
+      "id": "2"
+    },
+    {
+      "text": "La carretera estaba atascada. Había mucho tráfico el día de ayer.",
+      "id": "3"
+    }
+  ]
+}
