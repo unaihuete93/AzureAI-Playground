@@ -4,3 +4,6 @@ Trained using the lab content in : https://microsoftlearning.github.io/mslearn-a
 Resource used: 
     - Computer Vision: ai102computervisionunai
     - Storage Account:  ai102cvcustomnewv4
+TEST
+- using Vision Studio
+- HTTP file
