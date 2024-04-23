@@ -1,0 +1,39 @@
+
+# Requests to pretrained CLU model for Flight Booking
+
+## https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/quickstart?pivots=rest-api#query-model
+
+## Intent : BookFlight
+@endpoint=https://langauge-completedemo.cognitiveservices.azure.com 
+@api-version=2022-10-01-preview
+@projectName=FlightBooking
+@deploymentName=Production
+
+@query=I want to book a Flight from Barcelona to Madrid on 12th December 2022
+
+POST {{endpoint}}/language/:analyze-conversations?api-version={{api-version}}
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
+
+{
+    "kind":"Conversation",
+    "analysisInput":
+    {
+            "conversationItem":
+            {
+                "id":"1",
+                "text":"{{query}}",
+                "modality":"text",
+                "language":"en",
+                "participantId":"1"
+            }
+
+    },
+    "parameters":
+    {
+        "projectName":"{{projectName}}",
+        "verbose":true,
+        "deploymentName":"{{deploymentName}}",
+        "stringIndexType":"TextElement_V8"
+    }
+}

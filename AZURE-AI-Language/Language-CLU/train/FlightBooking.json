@@ -1,0 +1,317 @@
+{
+    "projectFileVersion": "2022-10-01-preview",
+    "stringIndexType": "Utf16CodeUnit",
+    "metadata": {
+        "projectKind": "Conversation",
+        "settings": {
+            "confidenceThreshold": 0,
+            "normalizeCasing": false
+        },
+        "projectName": "FlightBooking",
+        "multilingual": false,
+        "description": "",
+        "language": "en-us"
+    },
+    "assets": {
+        "projectKind": "Conversation",
+        "intents": [
+            {
+                "category": "None"
+            },
+            {
+                "category": "BookFlight"
+            },
+            {
+                "category": "CancelFlight"
+            },
+            {
+                "category": "FlightInfo"
+            }
+        ],
+        "entities": [
+            {
+                "category": "Origin",
+                "compositionSetting": "combineComponents",
+                "requiredComponents": [
+                    "learned"
+                ]
+            },
+            {
+                "category": "Destination",
+                "compositionSetting": "combineComponents",
+                "requiredComponents": [
+                    "learned"
+                ]
+            },
+            {
+                "category": "Date",
+                "compositionSetting": "combineComponents",
+                "prebuilts": [
+                    {
+                        "category": "DateTime"
+                    }
+                ]
+            },
+            {
+                "category": "FlightNumber",
+                "compositionSetting": "combineComponents",
+                "regex": {
+                    "expressions": [
+                        {
+                            "regexKey": "Number",
+                            "language": "en-us",
+                            "regexPattern": "[A-Z]{2}[0-9]{4}"
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "BookingNumber",
+                "compositionSetting": "combineComponents",
+                "regex": {
+                    "expressions": [
+                        {
+                            "regexKey": "Booking Number",
+                            "language": "en-us",
+                            "regexPattern": "[0-9]{6}"
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "FlightDetails",
+                "compositionSetting": "combineComponents"
+            }
+        ],
+        "utterances": [
+            {
+                "text": "What is the state of IB2839",
+                "language": "en-us",
+                "intent": "FlightInfo",
+                "entities": [
+                    {
+                        "category": "FlightNumber",
+                        "offset": 21,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you give me more information about my departure?",
+                "language": "en-us",
+                "intent": "FlightInfo",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "What happening to the following departure?",
+                "language": "en-us",
+                "intent": "FlightInfo",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Need more information around flight VY8293",
+                "language": "en-us",
+                "intent": "FlightInfo",
+                "entities": [
+                    {
+                        "category": "FlightNumber",
+                        "offset": 36,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you give me state for flight KL9283",
+                "language": "en-us",
+                "intent": "FlightInfo",
+                "entities": [
+                    {
+                        "category": "FlightNumber",
+                        "offset": 33,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I need to cancel the following booking 548796",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [
+                    {
+                        "category": "BookingNumber",
+                        "offset": 39,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Due to a family emergency, I must cancel my flight. What steps should I follow?",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "I’ve decided to change my plans. Please help me cancel my flight.",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you please assist me in cancelling my flight? My reservation code is 558156.",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [
+                    {
+                        "category": "BookingNumber",
+                        "offset": 73,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I need to cancel my flight due to unforeseen circumstances",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "I need to cancel from Singapur to Madrid",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [
+                    {
+                        "category": "Origin",
+                        "offset": 22,
+                        "length": 8
+                    },
+                    {
+                        "category": "Destination",
+                        "offset": 34,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can you cancel my flight",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [],
+                "dataset": "Train"
+            },
+            {
+                "text": "Cancel my flight with booking number 123456",
+                "language": "en-us",
+                "intent": "CancelFlight",
+                "entities": [
+                    {
+                        "category": "BookingNumber",
+                        "offset": 37,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Get me a flight from Milan to Paris on tuesday 28 January",
+                "language": "en-us",
+                "intent": "BookFlight",
+                "entities": [
+                    {
+                        "category": "Origin",
+                        "offset": 21,
+                        "length": 5
+                    },
+                    {
+                        "category": "Destination",
+                        "offset": 30,
+                        "length": 5
+                    },
+                    {
+                        "category": "Date",
+                        "offset": 39,
+                        "length": 18
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can I buy a ticket for the flight IB1892?",
+                "language": "en-us",
+                "intent": "BookFlight",
+                "entities": [
+                    {
+                        "category": "FlightNumber",
+                        "offset": 34,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Book Flight Madrid to London please",
+                "language": "en-us",
+                "intent": "BookFlight",
+                "entities": [
+                    {
+                        "category": "Origin",
+                        "offset": 12,
+                        "length": 7
+                    },
+                    {
+                        "category": "Destination",
+                        "offset": 22,
+                        "length": 6
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "I would like to book flight KL1647 that leaves on friday 27th March",
+                "language": "en-us",
+                "intent": "BookFlight",
+                "entities": [
+                    {
+                        "category": "FlightNumber",
+                        "offset": 28,
+                        "length": 6
+                    },
+                    {
+                        "category": "Date",
+                        "offset": 50,
+                        "length": 17
+                    }
+                ],
+                "dataset": "Train"
+            },
+            {
+                "text": "Can I book I flight from Rome to Paris?",
+                "language": "en-us",
+                "intent": "BookFlight",
+                "entities": [
+                    {
+                        "category": "Origin",
+                        "offset": 25,
+                        "length": 4
+                    },
+                    {
+                        "category": "Destination",
+                        "offset": 33,
+                        "length": 5
+                    }
+                ],
+                "dataset": "Train"
+            }
+        ]
+    }
+}
