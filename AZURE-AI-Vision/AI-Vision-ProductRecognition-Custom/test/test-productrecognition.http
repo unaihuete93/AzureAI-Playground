@@ -20,7 +20,8 @@
 
 @imageUrl="https://th.bing.com/th/id/OIP.5VvVkgDypdbqeOepwkPu8AHaJk?rs=1&pid=ImgDetMain"
 
-@run-name=test1
+#different in every execution
+@run-name=test2 
 PUT {{Endpoint}}/computervision/productrecognition/{{model-name}}/runs/{{run-name}}?api-version={{api-version}}
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIVISION_AI102_KEY}}
