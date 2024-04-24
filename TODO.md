@@ -1,4 +1,9 @@
 TODO list:
-- CLU testing
-- Speech scnearios
+- Speech scenearios
 - OpenAI scenarios
+    - Vision
+    - Function Calling - ChatCompletion
+    - Enhanced Vision
+    - Whisper
+    - Assistant API 
+
