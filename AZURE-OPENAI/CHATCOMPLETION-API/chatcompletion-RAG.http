@@ -1,0 +1,57 @@
+### DEMOS for ChatCompletion API
+#DOCS https://learn.microsoft.com/en-us/azure/ai-services/openai/references/azure-search?tabs=python 
+
+
+#DEMOS included
+
+
+#replace with your values 
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@deploymentName=gpt-4-unai
+
+@api-version=2024-02-01
+
+
+### Azure Search Index previously prepared from Azure OAI Studio. Similar to lab: https://microsoftlearning.github.io/mslearn-openai/Instructions/Exercises/06-use-own-data.html
+
+### 1. RAG - Azure Search - Hybrid Search - Managed Identity (AOAI-Search)
+
+# RBAC assignments https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-your-data-securely#role-assignments
+
+#replace with your values
+@search_endpoint= https://ai050-search-unai.search.windows.net
+@search_index=custom-data-margiestravel
+@embeddingDeployment=text-embedding-ada-002-unai
+
+#Not the sample given in "VIEW CODE" in Azure OAI Studio
+
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{search_endpoint}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3 
+    }
+  }],
+  "messages": [
+      {
+      "role": "user",
+      "content": "What is the recommended months for a visit to London?"
+      }
+  ],
+  "max_tokens": 100
+}
