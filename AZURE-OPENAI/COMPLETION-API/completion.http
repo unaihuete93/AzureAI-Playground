@@ -1,0 +1,53 @@
+### DEMOS for Completion API
+# https://learn.microsoft.com/en-us/azure/ai-services/openai/reference 
+
+
+#replace with your values 
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@deploymentName=davinci-002
+
+@api-version=2024-02-01
+
+### 1. Get simple completion
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Once upon a time",
+    "max_tokens": 30
+}
+
+### 2. Play with temperature (0 less to 1 more creative)
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Once upon a time",
+    "temperature": 1, 
+    "max_tokens": 30
+}
+
+### 3. Play with top_p (0 less to 1 more creative)
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Once upon a time",
+    "top_p": 1, 
+    "max_tokens": 30
+}
+
+### 4. Stop Sequence
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "prompt": "Spanish: Hola \n English: Hello \n French: ",
+    "max_tokens": 30,
+    "stop": ["\n"]
+
+}
