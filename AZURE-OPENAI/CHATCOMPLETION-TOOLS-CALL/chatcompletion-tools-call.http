@@ -1,0 +1,93 @@
+### DEMOS for ChatCompletion API
+# The functions and function_call parameters have been deprecated with the release of the 2023-12-01-preview version of the API. The replacement for functions is the tools parameter.
+# https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/function-calling?tabs=python
+
+#replace with your values 
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@deploymentName=gpt-4-unai
+
+@api-version=2024-02-01
+
+### 1. Function call or Tools (NEW) 
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant that helps people find information."
+        },
+        {
+            "role": "user",
+            "content": "What the weather in Barcelona?"
+        }
+    ],
+    "tools": [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "description": "Get the current weather in a given location",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "The city , e.g. San Francisco"
+                        },
+                        "unit": {
+                            "type": "string",
+                            "enum": ["celsius", "fahrenheit"]
+                        }
+                    },
+                    "required": ["location"]
+                }
+            }
+        }
+    ],
+    "max_tokens": 50
+}
+
+### 1. Something not related to the function/tool 
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant that helps people find information."
+        },
+        {
+            "role": "user",
+            "content": "Tell me more about ferrari cars"
+        }
+    ],
+    "tools": [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "description": "Get the current weather in a given location",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "The city , e.g. San Francisco"
+                        },
+                        "unit": {
+                            "type": "string",
+                            "enum": ["celsius", "fahrenheit"]
+                        }
+                    },
+                    "required": ["location"]
+                }
+            }
+        }
+    ],
+    "max_tokens": 50
+}
