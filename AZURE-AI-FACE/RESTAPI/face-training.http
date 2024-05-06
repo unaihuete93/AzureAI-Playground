@@ -55,9 +55,9 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 ### DELETE PERSON IN GROUP
 @personGroupId=real-sociedad
-@personId=b7ed1699-cbec-4db7-bc9c-13c3512a75f6
+@personId2=6eade3c8-5800-44a6-92fc-427e19ab14cc
 
-DELETE {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId}}
+DELETE {{Endpoint}}/face/v1.0/persongroups/{{personGroupId}}/persons/{{personId2}}
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
@@ -83,7 +83,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 ### ADD FACE TO PERSON 1 - MIKEL OYARZABAL
 
-@p=6eade3c8-5800-44a6-92fc-427e19ab14cc
+@p=bb9280aa-be71-4acb-b706-6df9a81c8a66
 @image1="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
 @image2="https://s.hs-data.com/bilder/spieler/gross/290844.jpg"
 
@@ -92,7 +92,7 @@ Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 {
-  "url": {{image2}}
+  "url": "https://s.rfi.fr/media/display/115ac3fa-ee0e-11eb-874e-005056bfb2b6/1ea802a213d1be31261f216ba20d66a7343aa78e.jpg"
 }
 
 ### CREATE PERSON 1 - MARTIN ZUBIMENDI
@@ -122,7 +122,7 @@ Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 {
-  "url": {{image2}}
+  "url": "https://s1.ppllstatics.com/diariovasco/real-sociedad/multimedia/202107/22/media/cortadas/zubimendi-kZgF-U15022620141fDG-1248x770@Diario%20Vasco.jpg"
 }
 
 ### TRAIN PERSON GROUP

@@ -63,36 +63,44 @@ def identify_face(face_client, faceid, person_group_id):
     return identify_result
 
 if __name__ == "__main__":
-    print("Select an option:")
-    print("1. Detect face")
-    print("2. Verify faces")
-    # Trained using Rest API calls
-    print("3. Identify (based on trained Person Group)")
-    option = int(input("Enter your option: "))
     
-    if option == 1:
-        image1_url = str(input("Provide image URL to detect face: "))
-        face_id = detect_face(face_client, image1_url)
-        
-    elif option == 2:
-        image1_url = str(input("Provide image URL to detect face 1: "))
-        face_id1 = detect_face(face_client, image1_url)
-        image1_url = str(input("Provide image URL to detect face 2: "))
-        face_id2 = detect_face(face_client, image1_url)
-        is_identical, confidence = verify_face(face_client, face_id1, face_id2)
-        print(f'Faces are identical: {is_identical}')
-        print(f'Confidence: {confidence}')
-    elif option == 3:
-        personGroupId = "real-sociedad" #change if needed
-        # Test Martin Zubimendi https://img.uefa.com/imgml/TP/players/14/2021/324x324/250143679.jpg
-        image1_url = str(input("Provide image URL face to identify: "))
-        face_id1 = detect_face(face_client, image1_url)
-        # Identify face
-        identify_result = identify_face(face_client, face_id1, personGroupId)
-        
-        
-    else:
-        print("Invalid option")
+    
+    while True:
+        print("Select an option:")
+        print("1. Detect face")
+        print("2. Verify faces")
+        print("3. Identify (based on trained Person Group)")
+        print("4. Exit")
+        option = int(input("Enter your option: "))
 
+        if option == 1:
+            image1_url = str(input("Provide image URL to detect face: "))
+            face_id = detect_face(face_client, image1_url)
+
+        elif option == 2:
+            image1_url = str(input("Provide image URL to detect face 1: "))
+            face_id1 = detect_face(face_client, image1_url)
+            image1_url = str(input("Provide image URL to detect face 2: "))
+            face_id2 = detect_face(face_client, image1_url)
+            is_identical, confidence = verify_face(face_client, face_id1, face_id2)
+            print(f'Faces are identical: {is_identical}')
+            print(f'Confidence: {confidence}')
+
+        elif option == 3:
+            personGroupId = "real-sociedad" #change if needed
+            image1_url = str(input("Provide image URL face to identify: "))
+            face_id1 = detect_face(face_client, image1_url)
+            identify_result = identify_face(face_client, face_id1, personGroupId)
+
+        elif option == 4:
+            print("Exiting the application.")
+            break
+
+        else:
+            print("Invalid option")
+            
+# TEST pictures
+
+# Martin https://estaticosgn-cdn.deia.eus/clip/b6135d22-af11-4aee-b485-861fa9e668be_16-9-discover-aspect-ratio_default_0.jpg
 
 
