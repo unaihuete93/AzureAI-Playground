@@ -1,0 +1,90 @@
+### DEMOS for ChatCompletion API
+# https://learn.microsoft.com/en-us/azure/ai-services/openai/reference 
+
+
+#replace with your values 
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@deploymentName=gpt-4-unai
+
+# ASSISTANTS can also be managed using the Portal, and saved in the OpenAI resource
+
+@api-version=2024-02-15-preview
+
+### 1. Create a new assistant 
+POST  {{endpoint}}/openai/assistants?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "instructions": "You are an AI assistant that act as a travel agency.",
+    "tools": [
+      { "type": "code_interpreter" }
+    ],
+    "model": "{{deploymentName}}"
+}
+
+### 2. Get all assistants
+GET {{endpoint}}/openai/assistants?api-version={{api-version}}
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+### 3. Modify Assistant
+@assistantId=asst_3f7k5SfrGjT2z0Sf9SFcrusA
+POST {{endpoint}}/openai/assistants/{{assistantId}}?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "name" : "Travel Agency Assistant v2",
+    "instructions": "You are an AI assistant that act as a travel agency.",
+    "tools": [
+      { "type": "code_interpreter" }
+    ],
+    "model": "{{deploymentName}}"
+}
+
+
+
+### 4. File Upload to OpenAI can be done
+# using the Portal or the API (not really clear). 
+# File gets uploaded to the OpenAI resource, next to fine tuning files "Data Files"
+# Limited to a few files (not RAG)
+
+# @name create_thread
+# 5. Create a new thread
+POST {{endpoint}}/openai/threads?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{}
+
+### 6. Add Message to Thread
+@threadId={{create_thread.response.body.id}}
+POST {{endpoint}}/openai/threads/{{threadId}}/messages?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "role": "user",
+    "content": "How does AI work? Explain it in simple terms."
+    
+}
+
+### 7. Create a Run
+
+POST {{endpoint}}/openai/threads/{{threadId}}/runs?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "assistant_id": "{{assistantId}}"
+}
+
+### 8. Thread messages list
+GET {{endpoint}}/openai/threads/{{threadId}}/messages?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+
+
+
+

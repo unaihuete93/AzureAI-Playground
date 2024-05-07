@@ -158,7 +158,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
       {
         "id": "1",
         "language": "en",
-        "text": "The food was delicious and there was wonderful staff."	
+        "text": "The food was delicious and there restaurant was ugly."	
       }
     ]
   }
