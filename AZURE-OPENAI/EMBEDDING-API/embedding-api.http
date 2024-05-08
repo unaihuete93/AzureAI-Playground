@@ -1,0 +1,18 @@
+# REFERENCE https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#embeddings
+
+#replace with your values
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+
+@deploymentId=text-embedding-ada-002-unai
+
+@api-version=2024-02-01
+
+# Get embeddings
+POST {{endpoint}}/openai/deployments/{{deploymentId}}/embeddings?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+    "input": "Once upon a time, there was a frog."
+}
+
