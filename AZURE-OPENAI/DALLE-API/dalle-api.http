@@ -1,0 +1,21 @@
+# REFERENCE https://learn.microsoft.com/en-us/azure/ai-services/openai/dall-e-quickstart?tabs=dalle3%2Ccommand-line&pivots=rest-api#create-a-new-python-application
+
+#replace with your values
+@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+
+@deploymentName=Dalle3
+
+@api-version=2024-02-01
+
+### @name dalle-post
+POST {{endpoint}}/openai/deployments/{{deploymentName}}/images/generations?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+  "prompt": "a painting of a flower vase",
+  "n": 1,
+  "quality": "hd",
+  "size": "1024x1024"
+
+}
