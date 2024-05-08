@@ -69,7 +69,8 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
     
 }
 
-### 7. Create a Run
+### @name create_run
+#7. Create a new run
 
 POST {{endpoint}}/openai/threads/{{threadId}}/runs?api-version={{api-version}}
 Content-Type: application/json
@@ -78,6 +79,14 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
 {
     "assistant_id": "{{assistantId}}"
 }
+
+### Get run
+@runId=run_Q9k9S8LWmdvPws3YOPk6jlXQ
+GET {{endpoint}}/openai/threads/{{threadId}}/runs/{{runId}}?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{}
 
 ### 8. Thread messages list
 GET {{endpoint}}/openai/threads/{{threadId}}/messages?api-version={{api-version}}
