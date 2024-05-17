@@ -1,0 +1,2 @@
+Microsoft.SemanticKernel --version 1.2.0
+Microsoft.SemanticKernel.Plugins.Core --version 1.2.0-alpha

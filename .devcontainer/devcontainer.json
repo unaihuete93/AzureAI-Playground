@@ -5,9 +5,13 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/python:0-3.11",
 	"features": {
-		"ghcr.io/devcontainers/features/azure-cli:1": {},
-		"ghcr.io/devcontainers/features/dotnet:1": {},
-		"ghcr.io/rchaganti/vsc-devcontainer-features/azurebicep:1": {}
+		"ghcr.io/devcontainers/features/azure-cli:1": {
+			"version": "latest"
+		},
+		"ghcr.io/rchaganti/vsc-devcontainer-features/azurebicep:1": {},
+		"ghcr.io/devcontainers/features/dotnet:2": {
+			"version": "8.0"
+		}
 	},
 	"customizations": {
 		"vscode": {
@@ -28,7 +32,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	 "postCreateCommand": "pip3 install --user -r requirements.txt"
+	"postCreateCommand": "pip3 install --user -r requirements.txt && while read package; do dotnet add package $package; done < packages.txt"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
