@@ -11,6 +11,10 @@
 // dotnet add package Microsoft.SemanticKernel --version 1.2.0
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Plugins.Core;
+
+//missing in MS Learn https://learn.microsoft.com/en-us/training/modules/create-plugins-semantic-kernel/8-exercise-save-prompts-files
+using Microsoft.SemanticKernel.ChatCompletion;
+
 using System;
 using System.Threading.Tasks;
 
@@ -46,6 +50,9 @@ do
     Console.WriteLine("2. Demo 2: Kernel with plugins- ConversationSummaryPlugin - GetConversationActionItems");
     Console.WriteLine("3. Demo 3: Prompt templates - using summarize plugin");
     Console.WriteLine("4. Demo 4: Prompt templates - Simple");
+    Console.WriteLine("5. Demo 5: Prompt templates - Few Shot Learning");
+    Console.WriteLine("6. Demo 6: Using Prompt Files");
+    Console.WriteLine("7. Demo 7: Using Prompt Files - Multiple Plugins");
 
     demoNumber = Console.ReadLine();
 
@@ -60,9 +67,17 @@ do
         case "3":
             RunDemo3(kernel).GetAwaiter().GetResult();;
             break;
-        // Add more cases as needed
         case "4":
             RunDemo4(kernel).GetAwaiter().GetResult();;
+            break;
+        case "5":
+            RunDemo5(kernel).GetAwaiter().GetResult();;
+            break;
+        case "6":
+            RunDemo6(kernel).GetAwaiter().GetResult();;
+            break;
+        case "7":
+            RunDemo7(kernel).GetAwaiter().GetResult();;
             break;
         case "exit":
             Console.WriteLine("Exiting program");
@@ -83,13 +98,13 @@ async Task RunDemo1(Kernel kernel)
     Console.WriteLine(result);
 }
 
-/*2. Build a kernel with plugins: plugin=ConversationSummaryPlugin and function=GetConversationActionItems*/
+/*2. Build a kernel with plugins: plugin=ConversationSummaryPlugin and function=GetConversationActionItems (included in the ConversationSummary built-in plugin)*/
 async Task RunDemo2(Kernel kernel)
 {
     Console.WriteLine("\n DEMO 2 \n");
 
     string input = @"I'm a vegan in search of new recipes. 
-    I love spicy food! Can you give me a list of breakfast 
+    I love spicy food! Please give me a list of breakfast 
     recipes that are vegan friendly?";
 
     var result = await kernel.InvokeAsync(
@@ -140,18 +155,89 @@ async Task RunDemo4(Kernel kernel)
     string history = @"I'm traveling with my kids and one of them 
         has a peanut allergy.";
 
-    string prompt = @$"Consider the traveler's background:
-        ${history}
+    string prompt = @$"You are a travel assistant. You are helpful, creative, 
+    and very friendly. Consider the traveler's background:
+    ${history}
 
-        Create a list of helpful phrases and words in 
-        ${language} a traveler would find useful.
+    Create a list of helpful phrases and words in 
+    ${language} a traveler would find useful.
 
-        Group phrases by category. Include common direction 
-        words. Display the phrases in the following format: 
-        Hello - Ciao [chow]";
+    Group phrases by category. Include common direction 
+    words. Display the phrases in the following format: 
+    Hello - Ciao [chow]
+
+    Begin with: 'Here are some phrases in ${language} 
+    you may find helpful:' 
+    and end with: 'I hope this helps you on your trip!'";
 
     var result = await kernel.InvokePromptAsync(prompt);
     Console.WriteLine(result);
+
+}
+
+/*5 - Prompt Template - Few Shot Learning */
+async Task RunDemo5(Kernel kernel)
+{
+    Console.WriteLine("\n DEMO 5 \n");
+    string input = @"I have a vacation from June 1 to July 
+        22. I want to go to Greece. I live in Chicago.";
+    string prompt = @$"
+        <message role=""system"">Instructions: Identify the 
+        from and to destinations and dates from the user's 
+        request</message>
+        <message role=""user"">Can you give me a list of 
+        flights from Seattle to Tokyo? I want to travel 
+        from March 11 to March 18.</message>
+        <message role=""assistant"">
+        Seattle|Tokyo|03/11/2024|03/18/2024
+        </message>
+
+        <message role=""user"">${input}</message>";
+
+
+    var result = await kernel.InvokePromptAsync(prompt);
+    Console.WriteLine(result);
+}
+
+/*6 - Using Prompt Files */
+async Task RunDemo6(Kernel kernel)
+{
+    var prompts = kernel.CreatePluginFromPromptDirectory("Prompts");
+    /*This object represents a collection of functions. CreatePluginFromPromptDirectory accepts the path of a plugin directory, and each subdirectory's name is used as the function name. 
+    For example, if you nested 'SuggestChords' inside a folder called 'ChordProgressions,' you would use the prompt directory 'Prompts/ChordProgressions' and the function name would stay the same.*/
+    string input = "G, C";
+
+    var result = await kernel.InvokeAsync(
+        prompts["SuggestChords"],
+        new() {
+            { "startingChords", input },
+        }
+    );
+    Console.WriteLine(result);
+}
+
+/*7 - Using Prompt Files - Multiple Plugins */
+async Task RunDemo7(Kernel kernel)
+{
+    //Done at start
+    //kernel.ImportPluginFromType<ConversationSummaryPlugin>();
+
+    var prompts = kernel.ImportPluginFromPromptDirectory("Prompts/TravelPlugins");
+    ChatHistory history = [];
+    string input = @"I'm planning an anniversary trip with my 
+        spouse. We like hiking, mountains, and beaches. Our 
+        travel budget is $15000";
+
+    var result = await kernel.InvokeAsync<string>(prompts["SuggestDestinations"],
+        new() {
+            { "input", input },
+        }
+    );
+
+    Console.WriteLine(result);
+    history.AddUserMessage(input);
+    history.AddAssistantMessage(result);
+
 
 }
 

@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/AZURE-OPENAI/SEMANTIC-KERNEL-SDK/C#/SemanticKernel/bin/Debug/net8.0/SemanticKernel.dll",
+            "program": "${workspaceFolder}/AZURE-OPENAI/SEMANTIC-KERNEL-SDK/C#/SemanticKernel-Samples/bin/Debug/net8.0/SemanticKernel.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/AZURE-OPENAI/SEMANTIC-KERNEL-SDK/C#/SemanticKernel",
+            "cwd": "${workspaceFolder}/AZURE-OPENAI/SEMANTIC-KERNEL-SDK/C#/SemanticKernel-Samples",
             "console": "internalConsole",
             "stopAtEntry": false
         },
