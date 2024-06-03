@@ -18,6 +18,9 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using System;
 using System.Threading.Tasks;
 
+//demo 10
+using Microsoft.SemanticKernel.Planning.Handlebars;
+
 //Replace with your values
 string yourDeploymentName = "gpt-4-unai";
 string yourEndpoint = "https://ai-050-swedencentral-previews.openai.azure.com/";
@@ -38,6 +41,8 @@ builder.Services.AddAzureOpenAIChatCompletion(
 #pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 #pragma warning restore SKEXP0050
+
+
 var kernel = builder.Build();
 
 string demoNumber;
@@ -51,8 +56,14 @@ do
     Console.WriteLine("3. Demo 3: Prompt templates - using summarize plugin");
     Console.WriteLine("4. Demo 4: Prompt templates - Simple");
     Console.WriteLine("5. Demo 5: Prompt templates - Few Shot Learning");
+    /* Setting up prompt configuration in separated files*/
     Console.WriteLine("6. Demo 6: Using Prompt Files");
     Console.WriteLine("7. Demo 7: Using Prompt Files - Multiple Plugins");
+    /*Create Native Function*/
+    Console.WriteLine("8. Demo 8: Using Native Function");
+    Console.WriteLine ("9. Using both Promtps and Functions");
+    /*Mixing all with Planner*/
+    Console.WriteLine("10. Using Planner with Prompts and Functions"); //Planner is similar to the function calling or tools in OpenAI
 
     demoNumber = Console.ReadLine();
 
@@ -78,6 +89,15 @@ do
             break;
         case "7":
             RunDemo7(kernel).GetAwaiter().GetResult();;
+            break;
+        case "8":
+            RunDemo8(kernel).GetAwaiter().GetResult();;
+            break;
+        case "9":
+            RunDemo9(kernel).GetAwaiter().GetResult();;
+            break;
+        case "10":
+            RunDemo10(kernel).GetAwaiter().GetResult();;
             break;
         case "exit":
             Console.WriteLine("Exiting program");
@@ -241,5 +261,62 @@ async Task RunDemo7(Kernel kernel)
 
 }
 
+/*8 - Using Native Function */
+async Task RunDemo8(Kernel kernel)
+{
+    kernel.ImportPluginFromType<MusicLibraryPlugin>();
 
+    var result = await kernel.InvokeAsync(
+        "MusicLibraryPlugin", 
+        "AddToRecentlyPlayed", 
+        new() {
+            ["artist"] = "Tiara", 
+            ["song"] = "Danse", 
+            ["genre"] = "French pop, electropop, pop"
+        }
+);
+}
+
+/*9 - Using both Prompts and Functions */
+async Task RunDemo9(Kernel kernel)
+{
+    kernel.ImportPluginFromType<MusicLibraryPlugin>();
+
+    string prompt = @"This is a list of music available to the user:
+        {{MusicLibraryPlugin.GetMusicLibrary}} 
+
+        This is a list of music the user has recently played:
+        {{MusicLibraryPlugin.GetRecentPlays}}
+
+        Based on their recently played music, suggest a song from
+        the list to play next";
+
+    var result = await kernel.InvokePromptAsync(prompt);
+    Console.WriteLine(result);
+}
+
+/*10 - Using Planner with Prompts and Functions */
+async Task RunDemo10(Kernel kernel)
+{
+    kernel.ImportPluginFromType<MusicLibraryPlugin>();
+    kernel.ImportPluginFromType<MusicConcertPlugin>();
+    kernel.ImportPluginFromPromptDirectory("Prompts");
+
+    #pragma warning disable SKEXP0060 //ignore warnings for preview
+
+    var planner = new HandlebarsPlanner(new HandlebarsPlannerOptions() { AllowLoops = true });
+
+    string location = "Redmond WA USA";
+    string goal = @$"Based on the user's recently played music, suggest a 
+        concert for the user living in ${location}";
+
+    var plan = await planner.CreatePlanAsync(kernel, goal);
+    var result = await plan.InvokeAsync(kernel);
+
+    Console.WriteLine($"Results: {result}");
+
+    #pragma warning restore SKEXP0060
+    
+    
+}
 

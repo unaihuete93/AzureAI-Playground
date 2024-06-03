@@ -20,7 +20,8 @@
 				"ms-toolsai.jupyter",
 				"GitHub.copilot-chat",
 				"KevinRose.vsc-python-indent",
-				"humao.rest-client"
+				"humao.rest-client",
+				"ms-dotnettools.csdevkit"
 			]
 		}
 	},

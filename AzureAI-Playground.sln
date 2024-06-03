@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AZURE-OPENAI", "AZURE-OPENAI", "{AD61EDDD-34C5-4CBA-9DFC-0C7A8A1364D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SEMANTIC-KERNEL-SDK", "SEMANTIC-KERNEL-SDK", "{1223B074-9934-4213-BE81-51F5D83A3756}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C#", "C#", "{96C09E5C-E79A-4D2F-8232-E2774A850C77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticKernel", "AZURE-OPENAI\SEMANTIC-KERNEL-SDK\C#\SemanticKernel-Samples\SemanticKernel.csproj", "{091DB384-BB88-4A76-960B-ECBDD2231907}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{091DB384-BB88-4A76-960B-ECBDD2231907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091DB384-BB88-4A76-960B-ECBDD2231907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091DB384-BB88-4A76-960B-ECBDD2231907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091DB384-BB88-4A76-960B-ECBDD2231907}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1223B074-9934-4213-BE81-51F5D83A3756} = {AD61EDDD-34C5-4CBA-9DFC-0C7A8A1364D5}
+		{96C09E5C-E79A-4D2F-8232-E2774A850C77} = {1223B074-9934-4213-BE81-51F5D83A3756}
+		{091DB384-BB88-4A76-960B-ECBDD2231907} = {96C09E5C-E79A-4D2F-8232-E2774A850C77}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EC880BF-7165-4E5A-BC46-EC17470C1A6F}
+	EndGlobalSection
+EndGlobal
