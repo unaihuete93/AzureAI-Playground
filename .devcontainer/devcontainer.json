@@ -5,13 +5,10 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/python:0-3.11",
 	"features": {
-		"ghcr.io/devcontainers/features/azure-cli:1": {
-			"version": "latest"
-		},
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
 		"ghcr.io/rchaganti/vsc-devcontainer-features/azurebicep:1": {},
-		"ghcr.io/devcontainers/features/dotnet:2": {
-			"version": "8.0"
-		}
+		"ghcr.io/devcontainers/features/dotnet:2": {},
+		"ghcr.io/azure/azure-dev/azd:0": {}
 	},
 	"customizations": {
 		"vscode": {
