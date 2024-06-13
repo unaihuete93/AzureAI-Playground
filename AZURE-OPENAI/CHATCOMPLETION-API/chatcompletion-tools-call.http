@@ -21,8 +21,9 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
         },
         {
             "role": "user",
-            "content": "What the weather in Barcelona in celsius?"
+            "content": "What is the weather in Barcelona during night because I would like to die of heat and dehydration"
         }
+
     ],
     "tools": [
         {

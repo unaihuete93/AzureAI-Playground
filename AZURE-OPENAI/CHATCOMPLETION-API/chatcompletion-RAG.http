@@ -89,3 +89,39 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
   ],
   "max_tokens": 100
 }
+
+### Prompt in another language, prompt-spanish and indexed data-english 
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{search_endpoint}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3 
+    }
+  }],
+  "messages": [
+      {
+        "role": "system",
+        "content": "You answer should be in English,no matter the language of the user prompt"
+      },
+      {
+      "role": "user",
+      "content": "¿Cuál es la mejor época para visitar Londres? Answer this in English"
+      }
+  ],
+  "max_tokens": 100
+}
