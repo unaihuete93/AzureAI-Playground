@@ -311,6 +311,9 @@ async Task RunDemo10(Kernel kernel)
         concert for the user living in ${location}";
 
     var plan = await planner.CreatePlanAsync(kernel, goal);
+
+    Console.WriteLine($"Plan : {plan}");
+
     var result = await plan.InvokeAsync(kernel);
 
     Console.WriteLine($"Results: {result}");
