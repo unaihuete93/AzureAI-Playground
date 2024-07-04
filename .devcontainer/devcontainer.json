@@ -18,7 +18,9 @@
 				"GitHub.copilot-chat",
 				"KevinRose.vsc-python-indent",
 				"humao.rest-client",
-				"ms-dotnettools.csdevkit"
+				"ms-dotnettools.csdevkit",
+				"ms-semantic-kernel.semantic-kernel",
+				"ms-dotnettools.dotnet-interactive-vscode"
 			]
 		}
 	},
