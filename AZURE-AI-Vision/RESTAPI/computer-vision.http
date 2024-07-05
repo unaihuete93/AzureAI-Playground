@@ -5,7 +5,7 @@
 
 
 ### NOTE request history shows command with the used variables!
-@Endpoint=https://ai050-cv-unai.cognitiveservices.azure.com
+@Endpoint={{$processEnv AIVISION_ENDPOINT}}
 
 -----------------
 
