@@ -8,13 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.semantickernel" Version="1.5.0" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.5.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.5.0" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
-    <Content Include="Plugins\**\*.*">
+  <ItemGroup>
+    <Content Include="plugins\**\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup> -->
+  </ItemGroup>
 
 </Project>

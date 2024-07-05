@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Note: do not update to 1.5 until the following issue is resolved:
+         https://github.com/microsoft/semantic-kernel/issues/5264 -->
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.4.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.4.0" />
+  </ItemGroup>
+
+</Project>

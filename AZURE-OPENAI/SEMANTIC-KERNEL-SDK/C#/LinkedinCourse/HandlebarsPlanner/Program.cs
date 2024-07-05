@@ -1,6 +1,6 @@
-﻿using _03_03e;
+﻿using _04_05e;
 
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
-await CorePlugins.Execute();
+await HandlebarsPlannerPractice.Execute();
