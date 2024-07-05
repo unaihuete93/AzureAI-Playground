@@ -4,7 +4,7 @@
 ## https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/quickstart?pivots=rest-api#query-model
 
 ## Intent : BookFlight
-@endpoint=https://langauge-completedemo.cognitiveservices.azure.com 
+@endpoint={{$processEnv LANGUAGEAI_ENDPOINT2}}
 @api-version=2022-10-01-preview
 @projectName=FlightBooking
 @deploymentName=Production

@@ -1,6 +1,6 @@
 ### 2. Custom Named Entity Recognition
 @api-version=2022-05-01
-@endpoint=https://languageunaicustomclassify.cognitiveservices.azure.com
+@endpoint={{$processEnv LANGUAGEAI_ENDPOINT}}
 
 #previously trained using Language Studio
 

@@ -1,6 +1,6 @@
 # INCLUDED DEMOS
 
-@endpoint= https://langauge-completedemo.cognitiveservices.azure.com
+@endpoint={{$processEnv LANGUAGEAI_ENDPOINT2}} 
 @projectName= QnA-Test
 
 #portal version is the "test" version!!

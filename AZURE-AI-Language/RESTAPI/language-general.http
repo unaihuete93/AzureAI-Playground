@@ -7,7 +7,9 @@
 # 6. Sentiment Analysis
 
 @api-version=2023-04-01
-@endpoint=https://languageunaicustomclassify.cognitiveservices.azure.com
+# @endpoint=https://languageunaicustomclassify.cognitiveservices.azure.com
+
+@endpoint={{$processEnv LANGUAGEAI_ENDPOINT}}
 
 ### 1. Entity Linking
 
