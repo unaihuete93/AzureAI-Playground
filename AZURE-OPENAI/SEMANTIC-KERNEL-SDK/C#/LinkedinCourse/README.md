@@ -1,0 +1,1 @@
+https://www.linkedin.com/learning/semantic-kernel-in-action-fundamentals/

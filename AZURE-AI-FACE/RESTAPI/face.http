@@ -18,7 +18,7 @@
 
 
 ### NOTE request history shows command with the used variables!
-@Endpoint=https://ai102faceunai.cognitiveservices.azure.com
+@Endpoint={{$processEnv AIFACE_END}}
 
 -----------------
 
