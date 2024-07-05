@@ -23,7 +23,7 @@ using Microsoft.SemanticKernel.Planning.Handlebars;
 
 //Replace with your values
 string yourDeploymentName = "gpt-4-unai";
-string yourEndpoint = "https://ai-050-swedencentral-previews.openai.azure.com/";
+string yourEndpoint = Environment.GetEnvironmentVariable("AOAI_SWEDEN_END");
 
 //Loaded from GitHub Secrets (env variables)
 string yourKey = Environment.GetEnvironmentVariable("AOAI_SWEDEN_KEY");

@@ -3,7 +3,7 @@
 # https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/function-calling?tabs=python
 
 #replace with your values 
-@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
 @deploymentName=gpt-4-unai
 
 @api-version=2024-02-01

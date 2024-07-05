@@ -10,7 +10,7 @@ public class PromptFunction
   public static async Task Execute()
   {
     var modelDeploymentName = "gpt-4-unai";
-    var azureOpenAIEndpoint = "https://ai-050-swedencentral-previews.openai.azure.com/";
+    var azureOpenAIEndpoint = Environment.GetEnvironmentVariable("AOAI_SWEDEN_END");
     var azureOpenAIApiKey = Environment.GetEnvironmentVariable("AOAI_SWEDEN_KEY");
 
     var builder = Kernel.CreateBuilder();

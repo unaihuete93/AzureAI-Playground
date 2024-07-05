@@ -3,7 +3,7 @@
 
 
 #replace with your values 
-@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
 @deploymentName=gpt-4-unai
 
 # ASSISTANTS can also be managed using the Portal, and saved in the OpenAI resource

@@ -1,7 +1,7 @@
 # REFERENCE https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#embeddings
 
 #replace with your values
-@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
 
 @deploymentId=text-embedding-ada-002-unai
 

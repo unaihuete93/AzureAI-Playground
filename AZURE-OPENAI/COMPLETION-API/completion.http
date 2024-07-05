@@ -3,7 +3,7 @@
 
 
 #replace with your values 
-@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
 @deploymentName=davinci-002
 
 @api-version=2024-02-01

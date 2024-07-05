@@ -1,7 +1,7 @@
 # REFERENCE https://learn.microsoft.com/en-us/azure/ai-services/openai/dall-e-quickstart?tabs=dalle3%2Ccommand-line&pivots=rest-api#create-a-new-python-application
 
 #replace with your values
-@endpoint=https://ai-050-swedencentral-previews.openai.azure.com/
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
 
 @deploymentName=Dalle3
 
