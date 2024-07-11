@@ -21,6 +21,9 @@ using System.Threading.Tasks;
 //demo 10
 using Microsoft.SemanticKernel.Planning.Handlebars;
 
+//demo 11
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+
 //Replace with your values
 string yourDeploymentName = "gpt-4-unai";
 string yourEndpoint = Environment.GetEnvironmentVariable("AOAI_SWEDEN_END");
@@ -64,6 +67,7 @@ do
     Console.WriteLine ("9. Using both Promtps and Functions");
     /*Mixing all with Planner*/
     Console.WriteLine("10. Using Planner with Prompts and Functions"); //Planner is similar to the function calling or tools in OpenAI
+    Console.WriteLine("11. Using Auto invoking");
 
     demoNumber = Console.ReadLine();
 
@@ -98,6 +102,9 @@ do
             break;
         case "10":
             RunDemo10(kernel).GetAwaiter().GetResult();;
+            break;
+        case "11":
+            RunDemo11(kernel).GetAwaiter().GetResult();;
             break;
         case "exit":
             Console.WriteLine("Exiting program");
@@ -320,6 +327,28 @@ async Task RunDemo10(Kernel kernel)
 
     #pragma warning restore SKEXP0060
     
-    
+}
+
+/*11 - Using Auto invoking */
+async Task RunDemo11(Kernel kernel)
+{
+    kernel.ImportPluginFromType<MusicLibraryPlugin>();
+    kernel.ImportPluginFromType<MusicConcertPlugin>();
+    kernel.ImportPluginFromPromptDirectory("Prompts");
+
+    //Auto invoking
+    OpenAIPromptExecutionSettings settings = new() 
+    { 
+        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions 
+    };
+
+    string location = "Redmond WA USA";
+    string goal = @$"Based on the user's recently played music, suggest a 
+        concert for the user living in ${location}";
+
+    var result = await kernel.InvokePromptAsync(goal, new (settings));
+
+    Console.WriteLine(result);
+
 }
 
