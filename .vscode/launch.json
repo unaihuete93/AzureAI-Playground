@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: image-analysis.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "cwd":"${workspaceFolder}/AZURE-AI-Vision/",
+            "console": "integratedTerminal"
+        },
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
