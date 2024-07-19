@@ -78,3 +78,28 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
     "max_tokens": 50
 }
 
+### 2. conversation history
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+  "messages": [
+        
+        {
+            "role": "user",
+            "content": "My name is Unai"
+        },
+        {
+            "role": "assistant",
+            "content": "hello unai, how can I help you? "
+        },
+        {
+            "role": "user",
+            "content": "what is my name?"
+        }
+
+    ],
+    "max_tokens": 50
+}
+

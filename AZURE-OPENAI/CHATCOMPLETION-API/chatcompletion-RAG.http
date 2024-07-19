@@ -44,7 +44,7 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
         "type": "deployment_name",
         "deployment_name": "{{embeddingDeployment}}"
       },
-      "top_n_documents": 3 
+      "top_n_documents": 3
     }
   }],
   "messages": [
