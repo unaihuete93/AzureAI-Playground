@@ -1,0 +1,15 @@
+[
+    { title: "See Tinh", artist: "Thach Ngoc", genre: "pop, Vietnamese pop" },
+    { title: "Luv(sic)", artist: "Chishin", genre: "hiphop, rap, Japanese hiphop" },
+    { title: "Kids", artist: "Omar Bennett", genre: "synthpop, alternative, indie" },
+    { title: "Ana Negm", artist: "Dabir", genre: "pop, arabic hiphop, Egyptian rap" },
+    { title: "Ladies that are Single", artist: "Sydney", genre: "pop, r&b" },
+    { title: "Oblivion", artist: "Eugenia", genre: "alternative, indie, electropop" },
+    { title: "1901", artist: "Andre", genre: "synthpop, alternative, indie" },
+    { title: "Suisei", artist: "Mirai", genre: "pop, Japanese pop" },
+    { title: "Sabry Aalil", artist: "Yasemin", genre: "pop, Egyptian pop" },
+    { title: "From Eden", artist: "Henry", genre: "blues, soul, electropop" },
+    { title: "Sofia", artist: "Gaby", genre: "alternative, indie, pop" },
+    { title: "Strawberry Blond", artist: "Nanami", genre: "Indie, Alternative, Folk"},
+    { title: "July", artist: "Lisa Taylor", genre: "indie, folk" }
+]

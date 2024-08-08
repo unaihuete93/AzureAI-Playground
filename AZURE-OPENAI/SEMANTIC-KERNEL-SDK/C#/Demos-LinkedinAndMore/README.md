@@ -1,1 +1,0 @@
-Some demos rere taken from the following linkeding course https://www.linkedin.com/learning/semantic-kernel-in-action-fundamentals/
