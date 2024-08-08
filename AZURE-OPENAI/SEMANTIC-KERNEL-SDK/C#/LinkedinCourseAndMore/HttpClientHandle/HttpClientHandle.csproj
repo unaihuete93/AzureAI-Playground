@@ -8,14 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Note: do not update to 1.5 until the following issue is resolved:
-         https://github.com/microsoft/semantic-kernel/issues/5264 -->
-    <PackageReference Include="Microsoft.SemanticKernel" Version="1.16.0" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.16.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.2-alpha" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 
+    
   </ItemGroup>
 
 </Project>
