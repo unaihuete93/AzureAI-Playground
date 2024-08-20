@@ -19,11 +19,10 @@
 # RBAC assignments https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-your-data-securely#role-assignments
 
 #replace with your values
-@search_endpoint= https://ai050-search-unai.search.windows.net
-@search_index=custom-data-margiestravel
+@search_index=brochures-index
 @embeddingDeployment=text-embedding-ada-002-unai
 
-#Not the sample given in "VIEW CODE" in Azure OAI Studio
+#Using Managed Identity
 
 POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
 Content-Type: application/json
@@ -34,10 +33,44 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
   {
     "type": "azure_search",
     "parameters": {
-      "endpoint": "{{search_endpoint}}",
+      "endpoint": "{{$processEnv AZURE_SEARCH_ENDPOINT}}",
       "index_name": "{{search_index}}",
       "authentication": {
         "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3
+    }
+  }],
+  "messages": [
+      {
+      "role": "user",
+      "content": "What is the recommended months for a visit to London?"
+      }
+  ],
+  "max_tokens": 100
+}
+
+### Using Azure Search Key
+
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{$processEnv AZURE_SEARCH_ENDPOINT}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "api_key",
+        "key": "{{$processEnv AZURE_SEARCH_KEY}}"
       },
       "query_type": "vector_simple_hybrid",
       "embedding_dependency": {
