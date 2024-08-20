@@ -281,9 +281,11 @@ async Task RunDemo8(Kernel kernel)
             ["song"] = "Danse", 
             ["genre"] = "French pop, electropop, pop"
         }
-);
-}
+    );
 
+    //consle output
+    Console.WriteLine(result);
+}
 /*9 - Using both Prompts and Functions */
 async Task RunDemo9(Kernel kernel)
 {
