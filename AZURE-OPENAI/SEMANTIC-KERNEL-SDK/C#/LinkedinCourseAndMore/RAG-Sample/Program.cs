@@ -83,7 +83,7 @@ class Program
                 case "1":
                     RunDemo1(kernel).GetAwaiter().GetResult();;
                     break;
-                // case "2":
+                // case "2": //SHOWN IN DOCS BUT NOT IMPLEMENTED
                 //     RunDemo2(kernel).GetAwaiter().GetResult();;
                 //     break;
                 
