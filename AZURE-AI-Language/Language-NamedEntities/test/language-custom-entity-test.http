@@ -6,8 +6,8 @@
 
 @text1= "Bluetooth earbuds, $100. These work okay, but sometimes disconnect from the phone. I'm sure someone more technical that me could figure it out.Located in Sacramento, CA"
 @text2="Ad Title: Amazing Deal! Ad Description: Don't miss out on this amazing deal! We're selling a brand new laptop for only $999 in New York City. The laptop is packed with powerful features and is perfect for both work and play. Contact us now to get your hands on this incredible offer!"
-@projectName="CustomEntityLab"
-@deploymentName="AdEntities"
+@projectName="customnamedentityunai"
+@deploymentName="Prod"
 
 # @name entity_start
 POST {{endpoint}}/language/analyze-text/jobs?api-version={{api-version}}
