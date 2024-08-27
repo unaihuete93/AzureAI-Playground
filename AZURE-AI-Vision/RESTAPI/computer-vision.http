@@ -18,7 +18,7 @@
 @language=en
 @api-version=2024-02-01
 
-@imageUrl="https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
+@imageUrl="https://th.bing.com/th/id/OIP.Ev1NqUwm3p4FoBUEjmSbgQHaE8?rs=1&pid=ImgDetMain"
 
 # satya: "https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain"
 POST {{Endpoint}}/computervision/imageanalysis:analyze?api-version={{api-version}}&features={{features1}}&model-version={{model-version}}&language={{language}}
@@ -26,7 +26,7 @@ Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv AIVISION_KEY}}
 
 {
-  "url": {{imageUrl}}
+  "url": "https://th.bing.com/th/id/OIP.Ev1NqUwm3p4FoBUEjmSbgQHaE8?rs=1&pid=ImgDetMain"
 }
 
 ## OCR Capabilities (VERSION 4)

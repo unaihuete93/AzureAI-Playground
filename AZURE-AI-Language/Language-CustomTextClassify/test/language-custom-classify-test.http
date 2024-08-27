@@ -7,8 +7,8 @@
 
 @text1= "Celebrities come out for the big awards ceremony.The stars of television and cinema were out in force on Thursday night for the first awards event of the season. The Contoso Awards celebrate artistic achievements in TV and file, and highlight the emerging stars we love to watch!"
 @text2="League best, worst XIs: Man United stars Pogba, Maguire had season to forget; Kane, Son shone for Spurs.After a final day of maximum drama, the glittering prizes in the League are decided: Real Contoso champions for the fourth time in five years, London foiled in a photo finish, Fabrikam in the League and Adatum United marching on into another season in the top flight.But how about the individual accolades? And how about those who would probably prefer to forget the season? Everyone will have their own ideas about the real movers and shakers, so without further ado, here are this observer's best and worst teams of 2021-22."
-@projectName="ClassifyLab"
-@deploymentName="staging"
+@projectName="customclassifysinglelabel"
+@deploymentName="Prod"
 
 # @name classify_start
 POST {{endpoint}}/language/analyze-text/jobs?api-version={{api-version}}
@@ -21,11 +21,6 @@ Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY}}
     "documents": [
       {
         "id": "1",
-        "language": "en",
-        "text": {{text1}}
-      },
-      {
-        "id": "2",
         "language": "en",
         "text": {{text2}}
       }

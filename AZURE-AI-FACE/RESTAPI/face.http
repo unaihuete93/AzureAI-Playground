@@ -32,7 +32,7 @@
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://icdn.football-espana.net/wp-content/uploads/2023/11/OYARZABAL-2.jpeg"
+@imageUrl="https://s.rfi.fr/media/display/115ac3fa-ee0e-11eb-874e-005056bfb2b6/1ea802a213d1be31261f216ba20d66a7343aa78e.jpg"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -45,8 +45,8 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 ### Verify - FaceID and FaceID
 
-@faceId1="8597a031-66a8-4eb2-8203-0d29d2599361"
-@faceId2="88ec2c6b-2dc7-4466-b09e-d5d4e288388f"
+@faceId1="1a5b8b8a-ade2-42b9-aafc-10f3e3c90ca6"
+@faceId2="61f02a7e-d38e-41a8-a3b9-66572983a4f5"
 
 
 POST {{Endpoint}}/face/v1.0/verify?
@@ -61,7 +61,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 ### Identify - FaceID and PersonGroup
 
 #get one calling detect
-@faceId="8597a031-66a8-4eb2-8203-0d29d2599361"
+@faceId="61f02a7e-d38e-41a8-a3b9-66572983a4f5"
 @personGroupId=real-sociedad
 
 
