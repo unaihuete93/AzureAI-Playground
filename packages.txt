@@ -1,3 +1,4 @@
 Microsoft.SemanticKernel --version 1.2.0
 Microsoft.SemanticKernel.Plugins.Core --version 1.2.0-alpha
 Microsoft.SemanticKernel.Planners.Handlebars --version 1.2.0-preview
+
