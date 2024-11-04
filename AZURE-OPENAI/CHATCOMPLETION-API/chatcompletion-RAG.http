@@ -19,7 +19,7 @@
 # RBAC assignments https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-your-data-securely#role-assignments
 
 #replace with your values
-@search_index=brochures-index
+@search_index=travel-index
 @embeddingDeployment=text-embedding-ada-002-unai
 
 #Using Managed Identity
