@@ -53,9 +53,9 @@ class Program
         //var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(yourDeploymentName, yourEndpoint, new DefaultAzureCredential(), httpClient: new HttpClient(new LoggingHttpClientHandler()));
         
         //UNCOMMENT TO DEBUG LOCALLY
-        // builder.Services.AddLogging(c => c.AddDebug()
-        //                                   .SetMinimumLevel(LogLevel.Trace) // don't do this in production!
-        //                                   .AddConsole());
+         builder.Services.AddLogging(c => c.AddDebug()
+                                           .SetMinimumLevel(LogLevel.Trace) // don't do this in production!
+                                           .AddConsole());
 
         // Build the kernel
         Kernel kernel = builder.Build();
