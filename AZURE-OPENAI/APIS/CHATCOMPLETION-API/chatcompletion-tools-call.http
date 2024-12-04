@@ -21,8 +21,17 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
         },
         {
             "role": "user",
-            "content": "What is the weather Barcelona ?"
+            "content": "What is the weather ?"
+        },
+        {
+            "role": "assistant",
+            "content": "sure, but I need the location ?"
+        },
+        {
+            "role": "user",
+            "content": "San Francisco"
         }
+
 
     ],
     "tools": [
