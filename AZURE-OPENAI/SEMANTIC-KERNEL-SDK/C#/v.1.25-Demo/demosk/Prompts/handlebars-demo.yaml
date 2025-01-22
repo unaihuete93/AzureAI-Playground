@@ -5,10 +5,10 @@ template_format: handlebars
 description: A function that generates a joke about a topic.
 input_variables:
   - name: topic
-    description: The topic of the story.
+    description: The topic of the joke.
     is_required: true
   - name: length
-    description: The number of sentences in the story.
+    description: The number of sentences in the joke.
     is_required: true
 output_variable:
-  description: The generated story.
+  description: The generated joke.

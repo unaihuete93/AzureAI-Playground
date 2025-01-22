@@ -17,8 +17,22 @@ using System.Threading.Tasks;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 //handlebars
+using System.IO;
+using System.Reflection;
+using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 
-
+public static class EmbeddedResource
+{
+    public static string Read(string resourceName)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        using (var stream = assembly.GetManifestResourceStream(resourceName))
+        using (var reader = new StreamReader(stream))
+        {
+            return reader.ReadToEnd();
+        }
+    }
+}
 
 class LoggingHttpClientHandler : HttpClientHandler
 {
@@ -71,9 +85,9 @@ class Program
         kernel.Plugins.AddFromType<LightsPlugin>("Lights");
 
         // Add a prompt template from file (handlebars YAML)
-        //var handlebarsPromptYaml = EmbeddedResource.Read("Prompts/handlebars-demo.yaml");
-        //var templateFactory = new HandlebarsPromptTemplateFactory();
-        //var function = kernel.CreateFunctionFromPromptYaml(handlebarsPromptYaml, templateFactory);
+        var handlebarsPromptYaml = File.ReadAllText("Prompts/handlebars-demo.yaml");
+        var templateFactory = new HandlebarsPromptTemplateFactory();
+        var function = kernel.CreateFunctionFromPromptYaml(handlebarsPromptYaml, templateFactory);
 
 
         //chat completion service 
