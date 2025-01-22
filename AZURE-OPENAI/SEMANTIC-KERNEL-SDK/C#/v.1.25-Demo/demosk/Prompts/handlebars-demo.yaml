@@ -1,0 +1,14 @@
+name: GenerateJoke
+template: |
+  Tell a joke about {{topic}} that is {{length}} sentences long.
+template_format: handlebars
+description: A function that generates a joke about a topic.
+input_variables:
+  - name: topic
+    description: The topic of the story.
+    is_required: true
+  - name: length
+    description: The number of sentences in the story.
+    is_required: true
+output_variable:
+  description: The generated story.

@@ -16,6 +16,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
+//handlebars
+
+
+
 class LoggingHttpClientHandler : HttpClientHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(
@@ -43,12 +47,14 @@ class Program
         string yourEndpoint = Environment.GetEnvironmentVariable("AOAI_SWEDEN_END");
         //string yourKey = Environment.GetEnvironmentVariable("AOAI_SWEDEN_KEY");
 
+        //Create a kernel with Azure OpenAI chat completion
 
-        // Create a kernel with Azure OpenAI chat completion
+        // AUTHENTICATE with key
         //var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(yourDeploymentName, endpoint, apiKey);
 
-        //With Service Principal/MI
+        //AUTHENTICATE With Service Principal/MI
         var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(yourDeploymentName, yourEndpoint, new DefaultAzureCredential());
+
         //with HTTPClient (COMMENT ONE OF THE TWO LINES)
         //var builder = Kernel.CreateBuilder().AddAzureOpenAIChatCompletion(yourDeploymentName, yourEndpoint, new DefaultAzureCredential(), httpClient: new HttpClient(new LoggingHttpClientHandler()));
         
@@ -59,10 +65,21 @@ class Program
 
         // Build the kernel
         Kernel kernel = builder.Build();
-        var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+        
 
         // Add a plugin
         kernel.Plugins.AddFromType<LightsPlugin>("Lights");
+
+        // Add a prompt template from file (handlebars YAML)
+        //var handlebarsPromptYaml = EmbeddedResource.Read("Prompts/handlebars-demo.yaml");
+        //var templateFactory = new HandlebarsPromptTemplateFactory();
+        //var function = kernel.CreateFunctionFromPromptYaml(handlebarsPromptYaml, templateFactory);
+
+
+        //chat completion service 
+        var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+
+
 
         // Enable planning
         OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new() 
@@ -94,6 +111,8 @@ class Program
 
             // Add the message from the agent to the chat history
             history.AddMessage(result.Role, result.Content ?? string.Empty);
+
+
         } while (userInput is not null);
     }
 }
