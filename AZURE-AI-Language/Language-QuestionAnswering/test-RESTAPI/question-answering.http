@@ -1,10 +1,10 @@
 # INCLUDED DEMOS
 
-@endpoint={{$processEnv LANGUAGEAI_ENDPOINT2}} 
-@projectName= QnA-Test
+@endpoint=https://languagecompleteunai.cognitiveservices.azure.com 
+@projectName=QnATest
 
 #portal version is the "test" version!!
-@deploymentName= production 
+@deploymentName=production 
 
 
 ### 1. Not related call - Chitchat
@@ -12,7 +12,6 @@
 POST {{endpoint}}/language/:query-knowledgebases?projectName={{projectName}}&api-version=2021-10-01&deploymentName={{deploymentName}}
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: {{$processEnv LANGUAGEAI_KEY_2}}
-
 
 {
   "question": "how are you?",

@@ -10,11 +10,11 @@ GET {{endpoint}}
 ### 2. Detect Language
 
 @endpoint2=https://api.cognitive.microsofttranslator.com/detect?api-version=3.0
-@region=northeurope
+@region=westeurope
 
 POST {{endpoint2}}
 Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
-Ocp-Apim-Subscription-Region: {{region}}
+Ocp-Apim-Subscription-Region: westeurope
 Content-Type: application/json
 
 [
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 POST {{endpoint3}}&from={{from}}&to={{to}}&profanityAction={{profanityAction}}&profanityMarker={{profanityMarker}}&includeAlignment={{includeAlignment}}&includeSentenceLength={{includeSentenceLength}}
 Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
-Ocp-Apim-Subscription-Region: {{region}}
+Ocp-Apim-Subscription-Region: westeurope
 Content-Type: application/json
 
 [
@@ -57,7 +57,7 @@ Content-Type: application/json
 @language=ja
 POST {{endpoint}}&language={{language}}&toScript={{toScript}}&fromScript={{fromScript}}
 Ocp-Apim-Subscription-Key: {{$processEnv TRANSLATOR_KEY}}
-Ocp-Apim-Subscription-Region: {{region}}
+Ocp-Apim-Subscription-Region: westeurope
 Content-Type: application/json
 
 [

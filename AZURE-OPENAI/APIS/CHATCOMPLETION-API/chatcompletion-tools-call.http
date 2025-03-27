@@ -25,14 +25,12 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
         },
         {
             "role": "assistant",
-            "content": "sure, but I need the location ?"
+            "content": "Please provide the location."
         },
         {
             "role": "user",
-            "content": "San Francisco"
+            "content": "I am in Stockholm"
         }
-
-
     ],
     "tools": [
         {
