@@ -1,5 +1,6 @@
 azure-ai-textanalytics==5.3.0
 azure-ai-vision==0.15.1b1
+azure-ai-vision-imageanalysis
 pillow
 matplotlib
 numpy

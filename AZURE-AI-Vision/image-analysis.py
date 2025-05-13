@@ -9,81 +9,80 @@ import sys
 import time
 from matplotlib import pyplot as plt
 import numpy as np
+import asyncio  # Import asyncio for asynchronous execution
 
 # Import namespaces
-import azure.ai.vision as sdk
+from azure.ai.vision.imageanalysis import ImageAnalysisClient
+from azure.ai.vision.imageanalysis.models import VisualFeatures
+from azure.core.credentials import AzureKeyCredential
 
 
-def main():
+async def main():
     global cv_client
 
     try:
         # Get Configuration Settings
         #load_dotenv()
-        ai_endpoint = os.getenv('AIVISION_ENDPOINT')
-        ai_key = os.getenv('AIVISION_KEY')
+        ai_endpoint = os.getenv('AI_VISION_V4_END')
+        ai_key = os.getenv('AI_VISION_V4_KEY')
 
         # Get image
-        image_file = 'images/Oyarzabal2.jpg'
+        image_file = '/workspaces/AzureAI-Playground/AZURE-AI-Vision/images/Oyarzabal2.jpg'
         if len(sys.argv) > 1:
             image_file = sys.argv[1]
 
         # Authenticate Azure AI Vision client
-        cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
-        
+        cv_client = ImageAnalysisClient(endpoint=ai_endpoint, credential=AzureKeyCredential(ai_key))
+
         # Analyze image
-        AnalyzeImage(image_file, cv_client)
+        await AnalyzeImage(image_file, cv_client)
 
         # Generate thumbnail
-        BackgroundForeground(image_file, cv_client)
+        # BackgroundForeground(image_file, cv_client)  # Update this function similarly if needed
 
     except Exception as ex:
         print(ex)
 
 
-def AnalyzeImage(image_file, cv_client):
+async def AnalyzeImage(image_file, cv_client):
     print('\nAnalyzing', image_file)
 
+    # Read image data as bytes
+    with open(image_file, 'rb') as f:
+        image_data = f.read()
+
     # Specify features to be retrieved
-    analysis_options = sdk.ImageAnalysisOptions()
-
-    features = analysis_options.features = (
-        sdk.ImageAnalysisFeature.CAPTION |
-        sdk.ImageAnalysisFeature.DENSE_CAPTIONS |
-        sdk.ImageAnalysisFeature.TAGS |
-        sdk.ImageAnalysisFeature.OBJECTS |
-        sdk.ImageAnalysisFeature.PEOPLE
+    result = cv_client.analyze(
+        image_data=image_data,
+        visual_features=[
+            VisualFeatures.CAPTION,
+            VisualFeatures.DENSE_CAPTIONS,
+            VisualFeatures.TAGS,
+            VisualFeatures.OBJECTS,
+            VisualFeatures.PEOPLE
+        ],
+        language="en",
+        gender_neutral_caption=True  # Optional
     )
-        
 
-
-    # Get image analysis
-    # Get image analysis
-    image = sdk.VisionSource(image_file)
-
-    image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
-
-    result = image_analyzer.analyze()
-
-    if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
+    if result is not None:  # Check if the result is valid
         # Get image captions
         if result.caption is not None:
             print("\nCaption:")
-            print(" Caption: '{}' (confidence: {:.2f}%)".format(result.caption.content, result.caption.confidence * 100))
+            print(" Caption: '{}' (confidence: {:.2f}%)".format(result.caption.text, result.caption.confidence * 100))
 
         # Get image dense captions
         if result.dense_captions is not None:
             print("\nDense Captions:")
-            for caption in result.dense_captions:
-                print(" Caption: '{}' (confidence: {:.2f}%)".format(caption.content, caption.confidence * 100))
+            for caption in result.dense_captions['values']:
+                print(" Caption: '{}' (confidence: {:.2f}%)".format(caption['text'], caption['confidence'] * 100))
 
         # Get image tags
         if result.tags is not None:
             print("\nTags:")
-            for tag in result.tags:
-                print(" Tag: '{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
+            for tag in result.tags['values']:
+                print(" Tag: '{}' (confidence: {:.2f}%)".format(tag['name'], tag['confidence'] * 100))
 
-        # Get objects in the image
         # Get objects in the image
         if result.objects is not None:
             print("\nObjects in image:")
@@ -95,20 +94,26 @@ def AnalyzeImage(image_file, cv_client):
             draw = ImageDraw.Draw(image)
             color = 'cyan'
 
-            for detected_object in result.objects:
-                # Print object name
-                print(" {} (confidence: {:.2f}%)".format(detected_object.name, detected_object.confidence * 100))
-                
+            for detected_object in result.objects['values']:
+                # Print object details
+                bounding_box = detected_object['boundingBox']
+                tags = detected_object['tags']
+
+                if tags:
+                    tag = tags[0]  # Assuming the first tag is the most relevant
+                    print(" Object: '{}' (confidence: {:.2f}%)".format(tag['name'], tag['confidence'] * 100))
+
                 # Draw object bounding box
-                r = detected_object.bounding_box
-                bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
-                draw.rectangle(bounding_box, outline=color, width=3)
-                plt.annotate(detected_object.name,(r.x, r.y), backgroundcolor=color)
+                box = ((bounding_box['x'], bounding_box['y']),
+                       (bounding_box['x'] + bounding_box['w'], bounding_box['y'] + bounding_box['h']))
+                draw.rectangle(box, outline=color, width=3)
+                if tags:
+                    plt.annotate(tag['name'], (bounding_box['x'], bounding_box['y']), backgroundcolor=color)
 
             # Save annotated image
             plt.imshow(image)
             plt.tight_layout(pad=0)
-            outputfile = 'objects.jpg'
+            outputfile = 'AZURE-AI-Vision/objects.jpg'
             fig.savefig(outputfile)
             print('  Results saved in', outputfile)
 
@@ -116,78 +121,40 @@ def AnalyzeImage(image_file, cv_client):
         if result.people is not None:
             print("\nPeople in image:")
 
-        # Prepare image for drawing
-        image = Image.open(image_file)
-        fig = plt.figure(figsize=(image.width/100, image.height/100))
-        plt.axis('off')
-        draw = ImageDraw.Draw(image)
-        color = 'cyan'
+            # Prepare image for drawing
+            image = Image.open(image_file)
+            fig = plt.figure(figsize=(image.width/100, image.height/100))
+            plt.axis('off')
+            draw = ImageDraw.Draw(image)
+            color = 'cyan'
 
-        for detected_people in result.people:
-            # Draw object bounding box
-            r = detected_people.bounding_box
-            bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
-            draw.rectangle(bounding_box, outline=color, width=3)
+            for detected_person in result.people['values']:
+                bounding_box = detected_person['boundingBox']
+                confidence = detected_person['confidence']
 
-            # Return the confidence of the person detected
-            #print(" {} (confidence: {:.2f}%)".format(detected_people.bounding_box, detected_people.confidence * 100))
-            
-        # Save annotated image
-        plt.imshow(image)
-        plt.tight_layout(pad=0)
-        outputfile = 'people.jpg'
-        fig.savefig(outputfile)
-        print('  Results saved in', outputfile)
+                if confidence * 100 > 75:  # Only show persons with confidence above 75%
+                    print(" Person detected with confidence: {:.2f}%".format(confidence * 100))
+                    print(" Bounding Box: x={}, y={}, w={}, h={}".format(
+                        bounding_box['x'], bounding_box['y'], bounding_box['w'], bounding_box['h']))
 
-    else:
-        error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
-        print(" Analysis failed.")
-        print("   Error reason: {}".format(error_details.reason))
-        print("   Error code: {}".format(error_details.error_code))
-        print("   Error message: {}".format(error_details.message))
+                    # Draw bounding box
+                    box = ((bounding_box['x'], bounding_box['y']),
+                           (bounding_box['x'] + bounding_box['w'], bounding_box['y'] + bounding_box['h']))
+                    draw.rectangle(box, outline=color, width=3)
 
-
-def BackgroundForeground(image_file, cv_client):
-    print('\n')
-    
-    # Remove the background from the image or generate a foreground matte
-    # Remove the background from the image or generate a foreground matte
-    print('\nRemove the background from the image or generate a foreground matte')
-
-    image = sdk.VisionSource(image_file)
-
-    analysis_options = sdk.ImageAnalysisOptions()
-
-    # Set the image analysis segmentation mode to background or foreground
-    analysis_options.segmentation_mode = sdk.ImageSegmentationMode.BACKGROUND_REMOVAL
-    #analysis_options.segmentation_mode = sdk.ImageSegmentationMode.FOREGROUND_MATTING
-        
-    image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
-
-    result = image_analyzer.analyze()
-
-    if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
-
-        image_buffer = result.segmentation_result.image_buffer
-        print(" Segmentation result:")
-        print("   Output image buffer size (bytes) = {}".format(len(image_buffer)))
-        print("   Output image height = {}".format(result.segmentation_result.image_height))
-        print("   Output image width = {}".format(result.segmentation_result.image_width))
-
-        output_image_file = "newimage.jpg"
-        with open(output_image_file, 'wb') as binary_file:
-            binary_file.write(image_buffer)
-        print("   File {} written to disk".format(output_image_file))
+            # Save annotated image
+            plt.imshow(image)
+            plt.tight_layout(pad=0)
+            outputfile = 'AZURE-AI-Vision/people.jpg'
+            fig.savefig(outputfile)
+            print('  Results saved in', outputfile)
 
     else:
-
-        error_details = sdk.ImageAnalysisErrorDetails.from_result(result)
+        error_details = "ErrorDetails"  # Replace with the correct class or method to extract error details
         print(" Analysis failed.")
-        print("   Error reason: {}".format(error_details.reason))
-        print("   Error code: {}".format(error_details.error_code))
-        print("   Error message: {}".format(error_details.message))
-        print(" Did you set the computer vision endpoint and key?")
+        print("   Error details could not be retrieved.")
+
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
