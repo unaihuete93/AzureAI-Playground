@@ -4,10 +4,11 @@
 ## https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/quickstart?pivots=rest-api#query-model
 
 ## Intent : BookFlight
-@endpoint={{$processEnv LANGUAGEAI_ENDPOINT2}}
+@endpoint=https://languagecompleteunai.cognitiveservices.azure.com
+
 @api-version=2022-10-01-preview
 @projectName=FlightBooking
-@deploymentName=Production
+@deploymentName=prod
 
 @query=I want to book a Flight from Barcelona to Madrid on 12th December 2022
 
