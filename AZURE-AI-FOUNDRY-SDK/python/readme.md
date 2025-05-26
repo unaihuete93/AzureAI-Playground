@@ -1,0 +1,1 @@
+pip install python-dotenv azure-identity azure-ai-projects azure-ai-inference
