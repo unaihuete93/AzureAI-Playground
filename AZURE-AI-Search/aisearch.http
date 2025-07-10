@@ -1,0 +1,30 @@
+### EXAMPLE Queries
+
+### Initial
+
+@endpoint={{$processEnv AZURE_SEARCH_ENDPOINT}}
+@index=azureblob-index
+
+POST {{endpoint}}/indexes/{{index}}/docs/search?api-version=2024-07-01  
+    Content-Type: application/json
+    api-key: {{$processEnv AZURE_SEARCH_KEY}}
+    
+    {
+        "search": "London",
+        "select": "metadata_storage_name, content, locations",
+        "searchFields": "metadata_storage_name, merged_content",
+        "count": true
+    }
+
+### filter example
+
+POST {{endpoint}}/indexes/{{index}}/docs/search?api-version=2024-07-01  
+    Content-Type: application/json
+    api-key: {{$processEnv AZURE_SEARCH_KEY}}
+    
+    {
+        "search": "London",
+        "select": "metadata_storage_name, language",
+        "filter": "language eq 'en' "
+    }
+
