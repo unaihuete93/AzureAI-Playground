@@ -21,7 +21,7 @@ def main():
     #load_dotenv()
     project_endpoint= os.getenv("AI_FOUNDRY_PROJECT_END")
     model_deployment = "gpt-4.1"
-    api_key = os.getenv("AI_FOUNDRY_PROJECT_KEY")
+    
 
     # Display the data to be analyzed
     script_dir = Path(__file__).parent  # Get the directory of the script
@@ -34,7 +34,7 @@ def main():
     # Connect to the Agent client
     agent_client = AgentsClient(
         endpoint=project_endpoint,
-        credential=AzureKeyCredential(api_key)
+        credential=DefaultAzureCredential()
     )
     with agent_client:
 
