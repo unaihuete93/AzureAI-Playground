@@ -6,7 +6,9 @@ from pathlib import Path
 # Add references
 from azure.identity import DefaultAzureCredential
 from azure.ai.agents import AgentsClient
-from azure.ai.agents.models import FilePurpose, CodeInterpreterTool, ListSortOrder, MessageRole
+from azure.ai.agents.models import FilePurpose, CodeInterpreterTool, ListSortOrder, MessageRole, FunctionTool, ToolSet
+#from azure.ai.agents.models import FunctionTool, ToolSet, ListSortOrder, MessageRole
+from user_functions import user_functions
 from azure.core.credentials import AzureKeyCredential
 
 
@@ -47,14 +49,23 @@ def main():
 
         code_interpreter = CodeInterpreterTool(file_ids=[file.id])
 
+        # Create a FunctionTool and add it to the ToolSet
+        functions = FunctionTool(user_functions)
+        toolset = ToolSet()
+        toolset.add(functions)
+        agent_client.enable_auto_function_calls(toolset)
+
         # Define an agent that uses the CodeInterpreterTool
         # Define an agent that uses the CodeInterpreterTool
+        
+        
         agent = agent_client.create_agent(
             model=model_deployment,
             name="data-agent",
-            instructions="You are an AI agent that analyzes the data in the file that has been uploaded. Use Python to calculate statistical metrics as necessary.",
+            instructions="You are an AI agent that analyzes the data in the file that has been uploaded when asked. You are also a technical support agent. When a user has a technical issue, you get their email address and a description of the issue. Then you use those values to submit a support ticket using the function available to you. If a file is saved, tell the user the file name",
             tools=code_interpreter.definitions,
             tool_resources=code_interpreter.resources,
+            toolset=toolset,
         )
         print(f"Using agent: {agent.name}")
 
