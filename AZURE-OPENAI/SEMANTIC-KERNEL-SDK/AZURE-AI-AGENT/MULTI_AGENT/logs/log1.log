@@ -1,0 +1,6 @@
+[2025-02-21 10:05:12] INFO  ServiceX: Initialization complete.
+[2025-02-21 10:10:34] WARNING  ServiceX: Response time exceeding threshold (4500ms)
+[2025-02-21 10:15:45] ERROR  ServiceX: Connection timeout with DatabaseY
+[2025-02-21 10:16:02] WARNING  ServiceX: Retrying connection...
+[2025-02-21 10:16:30] ERROR  ServiceX: Connection retry failed.
+[2025-02-21 10:18:14] ERROR  ServiceX: Critical failure - unable to connect to DatabaseY.
