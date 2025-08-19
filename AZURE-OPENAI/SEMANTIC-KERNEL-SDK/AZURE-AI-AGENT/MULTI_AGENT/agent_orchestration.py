@@ -59,7 +59,7 @@ async def main():
 
     # Get the Azure AI Agent settings
     project_endpoint = os.getenv("AI_FOUNDRY_PROJECT_END")
-    model_deployment = "gpt-4"  # Make sure this is a valid deployment name
+    model_deployment = "gpt-4.1"  # Make sure this is a valid deployment name
 
     #create env variables AZURE_AI_AGENT_ENDPOINT and AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME
 

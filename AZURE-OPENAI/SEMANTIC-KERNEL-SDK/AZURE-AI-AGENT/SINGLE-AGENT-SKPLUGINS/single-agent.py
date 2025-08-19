@@ -30,7 +30,7 @@ async def process_expenses_data(prompt, expenses_data):
 
     # Get the Azure AI Agent settings
     project_endpoint = os.getenv("AI_FOUNDRY_PROJECT_END")
-    model_deployment = "gpt-4.1"  # Make sure this is a valid deployment name
+    model_deployment = "gpt-4.1"  # Make sure this is a valid deployment name, GPT4 DID NOT WORK (Maybe not supporting Assistant API)
 
     #create env variables AZURE_AI_AGENT_ENDPOINT and AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME
 
