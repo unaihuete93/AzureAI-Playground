@@ -39,8 +39,6 @@ def main():
         credential=DefaultAzureCredential()
     )
     with agent_client:
-
-        # Upload the data file and create a CodeInterpreterTool
         # Upload the data file and create a CodeInterpreterTool
         file = agent_client.files.upload_and_poll(
             file_path=file_path, purpose=FilePurpose.AGENTS
@@ -53,29 +51,31 @@ def main():
         functions = FunctionTool(user_functions)
         toolset = ToolSet()
         toolset.add(functions)
+        toolset.add(code_interpreter)
         agent_client.enable_auto_function_calls(toolset)
 
-        # Define an agent that uses the CodeInterpreterTool
-        # Define an agent that uses the CodeInterpreterTool
-        
-        
-        agent = agent_client.create_agent(
-            model=model_deployment,
-            name="data-agent",
-            instructions="You are an AI agent that analyzes the data in the file that has been uploaded when asked. You are also a technical support agent. When a user has a technical issue, you get their email address and a description of the issue. Then you use those values to submit a support ticket using the function available to you. If a file is saved, tell the user the file name",
-            tools=code_interpreter.definitions,
-            tool_resources=code_interpreter.resources,
-            toolset=toolset,
-        )
-        print(f"Using agent: {agent.name}")
+        # Check if agent "data-agent" exists
+        agents = list(agent_client.list_agents())
+        agent = None
+        for a in agents:
+            if a.name == "data-agent":
+                agent = a
+                print(f"Found existing agent: {agent.name}")
+                break
+        if not agent:
+            agent = agent_client.create_agent(
+                model=model_deployment,
+                name="data-agent",
+                instructions="You are an AI agent that analyzes the data in the file that has been uploaded when asked. You are also a technical support agent. When a user has a technical issue, you get their email address and a description of the issue. Then you use those values to submit a support ticket using the function available to you. If a file is saved, tell the user the file name",
+                toolset=toolset,
+            )
+            print(f"Created new agent: {agent.name}")
 
         # Create a thread for the conversation
-        # Create a thread for the conversation
-        thread = agent_client.threads.create()      
-    
+        thread = agent_client.threads.create()
+
         # Loop until the user types 'quit'
         while True:
-            # Get input text
             user_prompt = input("Enter a prompt (or type 'quit' to exit): ")
             if user_prompt.lower() == "quit":
                 break
@@ -83,8 +83,6 @@ def main():
                 print("Please enter a prompt.")
                 continue
 
-            # Send a prompt to the agent
-            # Send a prompt to the agent
             message = agent_client.messages.create(
                 thread_id=thread.id,
                 role="user",
@@ -93,13 +91,9 @@ def main():
 
             run = agent_client.runs.create_and_process(thread_id=thread.id, agent_id=agent.id)
 
-            # Check the run status for failures
-            # Check the run status for failures
             if run.status == "failed":
                 print(f"Run failed: {run.last_error}")
-    
-            # Show the latest response from the agent
-            # Show the latest response from the agent
+
             last_msg = agent_client.messages.get_last_message_text_by_role(
                 thread_id=thread.id,
                 role=MessageRole.AGENT,
@@ -107,19 +101,11 @@ def main():
             if last_msg:
                 print(f"Last Message: {last_msg.text.value}")
 
-        # Get the conversation history
-        # Get the conversation history
         print("\nConversation Log:\n")
         messages = agent_client.messages.list(thread_id=thread.id, order=ListSortOrder.ASCENDING)
         for message in messages:
             if message.text_messages:
                 last_msg = message.text_messages[-1]
                 print(f"{message.role}: {last_msg.text.value}\n")
-
-        # Clean up
-
-    
-
-
 if __name__ == '__main__': 
     main()
