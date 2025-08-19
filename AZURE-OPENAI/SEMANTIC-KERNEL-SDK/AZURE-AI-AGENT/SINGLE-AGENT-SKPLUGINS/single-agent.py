@@ -28,41 +28,43 @@ async def main():
     
 async def process_expenses_data(prompt, expenses_data):
 
-    # Get configuration settings
+    # Get the Azure AI Agent settings
     project_endpoint = os.getenv("AI_FOUNDRY_PROJECT_END")
-    model_deployment = "gpt-4"  # Make sure this is a valid deployment name
+    model_deployment = "gpt-4.1"  # Make sure this is a valid deployment name
 
     #create env variables AZURE_AI_AGENT_ENDPOINT and AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME
 
     os.environ["AZURE_AI_AGENT_ENDPOINT"] = project_endpoint
     os.environ["AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME"] = model_deployment
-    #print both
-    print("AZURE_AI_AGENT_ENDPOINT:", os.environ["AZURE_AI_AGENT_ENDPOINT"])
-    print("AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME:", os.environ["AZURE_AI_AGENT_MODEL_DEPLOYMENT_NAME"])
+ 
     ai_agent_settings = AzureAIAgentSettings()
 
     # Connect to the Azure AI Foundry project
         
     async with (
-        DefaultAzureCredential(
-            exclude_environment_credential=True,
-            exclude_managed_identity_credential=True) as creds,
+        DefaultAzureCredential() as creds,
         AzureAIAgent.create_client(
-            credential=creds
+            credential=creds, endpoint=project_endpoint
         ) as project_client,
     ):
-        #print used credential
-        print("DefaultAzureCredential:", creds)
-        # Define an Azure AI agent that sends an expense claim email
-        expenses_agent_def = await project_client.agents.create_agent(
-            model= ai_agent_settings.model_deployment_name,
-            name="expenses_agent",
-            instructions="""You are an AI assistant for expense claim submission.
-                            When a user submits expenses data and requests an expense claim, use the plug-in function to send an email to expenses@contoso.com with the subject 'Expense Claim`and a body that contains itemized expenses with a total.
-                            Then confirm to the user that you've done so."""
-        )
+        
+        # Check if agent already exists
+        expenses_agent_def = None
+        async for agent in project_client.agents.list_agents():
+            if agent.name == "expenses_agent":
+                expenses_agent_def = agent
+                print(f"Found existing agent: {agent.name} with ID: {agent.id}")
+                break
+        if not expenses_agent_def:
+            expenses_agent_def = await project_client.agents.create_agent(
+                model=ai_agent_settings.model_deployment_name,
+                name="expenses_agent",
+                instructions="""You are an AI assistant for expense claim submission.
+                                When a user submits expenses data and requests an expense claim, use the plug-in function to send an email to expenses@contoso.com with the subject 'Expense Claim`and a body that contains itemized expenses with a total.
+                                Then confirm to the user that you've done so."""
+            )
+            print(f"Created agent: {expenses_agent_def.name} with ID: {expenses_agent_def.id}")
 
-        # Create a semantic kernel agent
         # Create a semantic kernel agent
         expenses_agent = AzureAIAgent(
             client=project_client,
@@ -87,7 +89,9 @@ async def process_expenses_data(prompt, expenses_data):
         finally:
             # Cleanup: Delete the thread and agent
             await thread.delete() if thread else None
-            await project_client.agents.delete_agent(expenses_agent.id)
+            #await project_client.agents.delete_agent(expenses_agent.id)
+            
+           
 
 
 # Create a Plugin for the email functionality
