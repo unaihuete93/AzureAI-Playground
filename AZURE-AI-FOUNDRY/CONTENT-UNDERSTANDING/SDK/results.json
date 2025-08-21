@@ -1,0 +1,239 @@
+{
+    "id": "298ecfe1-80aa-4166-95cc-146d0ddba81d",
+    "status": "Succeeded",
+    "result": {
+        "analyzerId": "business-card-analyzer",
+        "apiVersion": "2025-05-01-preview",
+        "createdAt": "2025-08-21T14:07:03Z",
+        "warnings": [],
+        "contents": [
+            {
+                "markdown": "<figure>\n</figure>\n\n\nAdventure Works Cycles\n\nRoberto Tamburello\nEngineering Manager\n\nroberto@adventure-works.com\n\n555-123-4567\n",
+                "fields": {
+                    "Company": {
+                        "type": "string",
+                        "valueString": "Adventure Works Cycles"
+                    },
+                    "Name": {
+                        "type": "string",
+                        "valueString": "Roberto Tamburello"
+                    },
+                    "Title": {
+                        "type": "string",
+                        "valueString": "Engineering Manager"
+                    },
+                    "Email": {
+                        "type": "string",
+                        "valueString": "roberto@adventure-works.com"
+                    },
+                    "Phone": {
+                        "type": "string",
+                        "valueString": "555-123-4567"
+                    }
+                },
+                "kind": "document",
+                "startPageNumber": 1,
+                "endPageNumber": 1,
+                "unit": "pixel",
+                "pages": [
+                    {
+                        "pageNumber": 1,
+                        "angle": 0.0234212,
+                        "width": 1000,
+                        "height": 620,
+                        "spans": [
+                            {
+                                "offset": 0,
+                                "length": 127
+                            }
+                        ],
+                        "words": [
+                            {
+                                "content": "Adventure",
+                                "span": {
+                                    "offset": 21,
+                                    "length": 9
+                                },
+                                "confidence": 0.993,
+                                "source": "D(1,283,87,543,87,542,140,282,138)"
+                            },
+                            {
+                                "content": "Works",
+                                "span": {
+                                    "offset": 31,
+                                    "length": 5
+                                },
+                                "confidence": 0.997,
+                                "source": "D(1,561,87,714,87,713,142,561,140)"
+                            },
+                            {
+                                "content": "Cycles",
+                                "span": {
+                                    "offset": 37,
+                                    "length": 6
+                                },
+                                "confidence": 0.995,
+                                "source": "D(1,731,87,901,87,901,143,731,142)"
+                            },
+                            {
+                                "content": "Roberto",
+                                "span": {
+                                    "offset": 45,
+                                    "length": 7
+                                },
+                                "confidence": 0.997,
+                                "source": "D(1,50,324,195,324,195,363,49,363)"
+                            },
+                            {
+                                "content": "Tamburello",
+                                "span": {
+                                    "offset": 53,
+                                    "length": 10
+                                },
+                                "confidence": 0.995,
+                                "source": "D(1,206,324,408,325,408,363,206,363)"
+                            },
+                            {
+                                "content": "Engineering",
+                                "span": {
+                                    "offset": 64,
+                                    "length": 11
+                                },
+                                "confidence": 0.996,
+                                "source": "D(1,50,371,235,372,234,411,49,410)"
+                            },
+                            {
+                                "content": "Manager",
+                                "span": {
+                                    "offset": 76,
+                                    "length": 7
+                                },
+                                "confidence": 0.997,
+                                "source": "D(1,248,372,387,373,387,411,248,411)"
+                            },
+                            {
+                                "content": "roberto@adventure-works.com",
+                                "span": {
+                                    "offset": 85,
+                                    "length": 27
+                                },
+                                "confidence": 0.989,
+                                "source": "D(1,49,521,488,521,488,549,49,550)"
+                            },
+                            {
+                                "content": "555-123-4567",
+                                "span": {
+                                    "offset": 114,
+                                    "length": 12
+                                },
+                                "confidence": 0.977,
+                                "source": "D(1,731,520,927,520,927,548,731,548)"
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "content": "Adventure Works Cycles",
+                                "source": "D(1,283,86,901,87,900,142,282,139)",
+                                "span": {
+                                    "offset": 21,
+                                    "length": 22
+                                }
+                            },
+                            {
+                                "content": "Roberto Tamburello",
+                                "source": "D(1,49,324,407,324,407,363,49,363)",
+                                "span": {
+                                    "offset": 45,
+                                    "length": 18
+                                }
+                            },
+                            {
+                                "content": "Engineering Manager",
+                                "source": "D(1,49,370,387,372,387,411,49,410)",
+                                "span": {
+                                    "offset": 64,
+                                    "length": 19
+                                }
+                            },
+                            {
+                                "content": "roberto@adventure-works.com",
+                                "source": "D(1,49,521,487,520,487,549,49,550)",
+                                "span": {
+                                    "offset": 85,
+                                    "length": 27
+                                }
+                            },
+                            {
+                                "content": "555-123-4567",
+                                "source": "D(1,731,519,926,519,926,547,731,547)",
+                                "span": {
+                                    "offset": 114,
+                                    "length": 12
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "paragraphs": [
+                    {
+                        "content": "Adventure Works Cycles",
+                        "source": "D(1,283,83,901,87,900,142,282,139)",
+                        "span": {
+                            "offset": 21,
+                            "length": 22
+                        }
+                    },
+                    {
+                        "content": "Roberto Tamburello Engineering Manager",
+                        "source": "D(1,49,324,407,324,407,411,49,411)",
+                        "span": {
+                            "offset": 45,
+                            "length": 38
+                        }
+                    },
+                    {
+                        "content": "roberto@adventure-works.com",
+                        "source": "D(1,49,521,487,520,487,549,49,550)",
+                        "span": {
+                            "offset": 85,
+                            "length": 27
+                        }
+                    },
+                    {
+                        "content": "555-123-4567",
+                        "source": "D(1,731,519,926,519,926,547,731,547)",
+                        "span": {
+                            "offset": 114,
+                            "length": 12
+                        }
+                    }
+                ],
+                "sections": [
+                    {
+                        "span": {
+                            "offset": 0,
+                            "length": 126
+                        },
+                        "elements": [
+                            "/figures/0",
+                            "/paragraphs/0",
+                            "/paragraphs/1",
+                            "/paragraphs/2",
+                            "/paragraphs/3"
+                        ]
+                    }
+                ],
+                "figures": [
+                    {
+                        "source": "D(1,56,46,246,46,246,226,56,226)",
+                        "span": {
+                            "offset": 0,
+                            "length": 18
+                        },
+                        "id": "1.1"
+                    }
+                ]
+            }
+        ]
+    }
+}

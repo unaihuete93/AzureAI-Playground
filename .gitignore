@@ -3,4 +3,4 @@
 
 # Ignore obj directory
 **/obj/
-AZURE-OPENAI/SEMANTIC-KERNEL-SDK/AZURE-AI-AGENT/SINGLE-AGENT-SKPLUGINS/labenv/**
+**/labenv/**

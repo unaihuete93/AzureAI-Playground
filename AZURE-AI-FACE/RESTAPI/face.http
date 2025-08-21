@@ -32,7 +32,7 @@
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://s.rfi.fr/media/display/115ac3fa-ee0e-11eb-874e-005056bfb2b6/1ea802a213d1be31261f216ba20d66a7343aa78e.jpg"
+@imageUrl="https://cdn.realsociedad.eus/Uploads/jugadores/_0_22-barrene.png"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -45,8 +45,8 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 
 ### Verify - FaceID and FaceID
 
-@faceId1="1a5b8b8a-ade2-42b9-aafc-10f3e3c90ca6"
-@faceId2="61f02a7e-d38e-41a8-a3b9-66572983a4f5"
+@faceId1="68bba20a-2747-4dff-ae15-06d490dc58c1"
+@faceId2="bb873604-786a-4cf7-b674-6c006233ae24"
 
 
 POST {{Endpoint}}/face/v1.0/verify?
@@ -61,7 +61,7 @@ Ocp-Apim-Subscription-Key: {{$processEnv AIFACE_SECRET}}
 ### Identify - FaceID and PersonGroup
 
 #get one calling detect
-@faceId="61f02a7e-d38e-41a8-a3b9-66572983a4f5"
+@faceId="bb873604-786a-4cf7-b674-6c006233ae24"
 @personGroupId=real-sociedad
 
 
