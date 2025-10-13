@@ -1,0 +1,4 @@
+Support ticket: a73cda
+Submitted by: hueteunai@gmail.com
+Description:
+Cannot pay with Apple Pay.
