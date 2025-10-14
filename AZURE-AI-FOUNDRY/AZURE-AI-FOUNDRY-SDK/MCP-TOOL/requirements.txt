@@ -1,0 +1,8 @@
+python-dotenv
+azure-identity
+uvicorn
+
+# use the command 
+# python -m venv labenv
+# ./labenv/bin/Activate.ps1
+# pip install -r requirements.txt --pre azure-ai-projects mcp

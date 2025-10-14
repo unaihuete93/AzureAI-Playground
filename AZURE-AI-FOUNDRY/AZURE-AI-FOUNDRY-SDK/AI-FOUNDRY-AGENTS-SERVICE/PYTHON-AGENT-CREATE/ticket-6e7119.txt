@@ -1,0 +1,4 @@
+Support ticket: 6e7119
+Submitted by: unai@outlook.com
+Description:
+Cannot pay with Apple Pay.
