@@ -1,10 +1,10 @@
 import os
+from dotenv import load_dotenv
 
 # Add references
-from dotenv import load_dotenv
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
-from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage
+from openai import AzureOpenAI
 
 def main(): 
 
@@ -14,26 +14,26 @@ def main():
     try: 
     
         # Get configuration settings 
-        #load_dotenv()
-        project_connection = os.environ.get("AI_FOUNDRY_PROJECT_END", "")
-        model_deployment =  "gpt-4.1"
+        load_dotenv()
+        project_endpoint = os.getenv("PROJECT_ENDPOINT") or os.environ.get("AI_FOUNDRY_PROJECT_END")
+        model_deployment = os.getenv("MODEL_DEPLOYMENT") or "gpt-4.1"
         
-        # Initialize the project client, using Service Principal credentials (GH Codespace secret)
-        projectClient = AIProjectClient(            
+        # Initialize the project client
+        project_client = AIProjectClient(            
             credential=DefaultAzureCredential(
-                exclude_environment_credential=False,
+                exclude_environment_credential=True,
                 exclude_managed_identity_credential=True
             ),
-            endpoint=project_connection,
+            endpoint=project_endpoint,
         )
 
-        ## Get a chat client
-        chat = projectClient.inference.get_chat_completions_client()
+        # Get a chat client
+        openai_client = project_client.get_openai_client(api_version="2024-10-21")
 
         # Initialize prompt with system message
-        prompt=[
-            SystemMessage("You are a helpful AI assistant that answers questions.")
-        ] 
+        prompt = [
+            {"role": "system", "content": "You are a helpful AI assistant that answers questions."}
+        ]
 
         # Loop until the user types 'quit'
         while True:
@@ -46,13 +46,13 @@ def main():
                 continue
             
             # Get a chat completion
-            prompt.append(UserMessage(input_text))
-            response = chat.complete(
+            prompt.append({"role": "user", "content": input_text})
+            response = openai_client.chat.completions.create(
                 model=model_deployment,
                 messages=prompt)
             completion = response.choices[0].message.content
             print(completion)
-            prompt.append(AssistantMessage(completion))
+            prompt.append({"role": "assistant", "content": completion})
 
     except Exception as ex:
         print(ex)
