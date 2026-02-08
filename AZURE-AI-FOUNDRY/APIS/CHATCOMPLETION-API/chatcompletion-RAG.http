@@ -1,0 +1,183 @@
+### DEMOS for ChatCompletion API
+#DOCS https://learn.microsoft.com/en-us/azure/ai-services/openai/references/azure-search?tabs=python 
+
+
+#DEMOS included
+
+
+#replace with your values 
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
+@deploymentName=gpt-4-unai
+
+@api-version=2024-02-01
+
+# Service Principal credentials
+@tenantId={{$processEnv AZURE_TENANT_ID}}
+@clientId={{$processEnv AZURE_CLIENT_ID}}
+@clientSecret={{$processEnv AZURE_CLIENT_SECRET}}
+
+### 0. Get Bearer Token using Service Principal
+# @name getToken
+POST https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveservices.azure.com/.default&grant_type=client_credentials
+
+### Example: Chat Completion using Service Principal Bearer Token
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "messages": [
+    {"role": "user", "content": "Hello, what can you help me with?"}
+  ],
+  "max_tokens": 100
+}
+
+### Azure Search Index previously prepared from Azure OAI Studio. Similar to lab: https://microsoftlearning.github.io/mslearn-openai/Instructions/Exercises/06-use-own-data.html
+
+### 1. RAG - Azure Search - Hybrid Search - Managed Identity (AOAI-Search)
+
+# RBAC assignments https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/use-your-data-securely#role-assignments
+
+#replace with your values
+@search_index=travel-index
+@embeddingDeployment=text-embedding-ada-002-unai
+
+#Using Managed Identity
+
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{$processEnv AZURE_SEARCH_ENDPOINT}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3
+    }
+  }],
+  "messages": [
+      {
+      "role": "user",
+      "content": "What is the recommended months for a visit to London?"
+      }
+  ],
+  "max_tokens": 100
+}
+
+### Using Azure Search Key
+
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{$processEnv AZURE_SEARCH_ENDPOINT}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "api_key",
+        "key": "{{$processEnv AZURE_SEARCH_KEY}}"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3
+    }
+  }],
+  "messages": [
+      {
+      "role": "user",
+      "content": "What is the recommended months for a visit to London?"
+      }
+  ],
+  "max_tokens": 100
+}
+
+### OUT OF SCOPE QUESTIONS (in_scope: false) - NOT WORKING
+
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{search_endpoint}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3,
+      "in_scope": false
+    }
+  }],
+  "messages": [
+      {
+      "role": "user",
+      "content": "Tell me more about Ferrari"
+      }
+  ],
+  "max_tokens": 100
+}
+
+### Prompt in another language, prompt-spanish and indexed data-english 
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "data_sources":[
+  {
+    "type": "azure_search",
+    "parameters": {
+      "endpoint": "{{search_endpoint}}",
+      "index_name": "{{search_index}}",
+      "authentication": {
+        "type": "system_assigned_managed_identity"
+      },
+      "query_type": "vector_simple_hybrid",
+      "embedding_dependency": {
+        "type": "deployment_name",
+        "deployment_name": "{{embeddingDeployment}}"
+      },
+      "top_n_documents": 3 
+    }
+  }],
+  "messages": [
+      {
+        "role": "system",
+        "content": "You answer should be in English,no matter the language of the user prompt"
+      },
+      {
+      "role": "user",
+      "content": "¿Cuál es la mejor época para visitar Londres? Answer this in English"
+      }
+  ],
+  "max_tokens": 100
+}
