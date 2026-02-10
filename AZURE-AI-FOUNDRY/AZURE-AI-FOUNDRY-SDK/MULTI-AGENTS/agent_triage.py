@@ -180,3 +180,7 @@ with agents_client:
     
 
     # Clean up (OPTIONAL)
+    
+    
+    ## EXAMPLE MESSAGES TO TEST WITH:
+    # "All webservers are down and customers are unable to access the website."
