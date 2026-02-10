@@ -1,0 +1,38 @@
+#INCLUDED DEMOS
+# 1. Translate Text (Multi-language)
+
+@api-version=2025-10-01-preview
+
+# for foundry resource
+@endpoint={{$processEnv AI_FOUNDRY_ENDPOINT}}
+
+# Service Principal credentials
+@tenantId={{$processEnv AZURE_TENANT_ID}}
+@clientId={{$processEnv AZURE_CLIENT_ID}}
+@clientSecret={{$processEnv AZURE_CLIENT_SECRET}}
+
+### 0. Get Bearer Token using Service Principal
+# @name getToken
+POST https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveservices.azure.com/.default&grant_type=client_credentials
+
+### 1. Translate Text (English to Spanish and French)
+
+POST {{endpoint}}/translator/text/translate?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "inputs": [
+    {
+      "Text": "Doctor is available next Monday. Do you want to schedule an appointment?",
+      "language": "en",
+      "targets": [
+        {"language": "es"},
+        {"language": "fr"}
+      ]
+    }
+  ]
+}
