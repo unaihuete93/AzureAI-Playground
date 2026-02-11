@@ -1,0 +1,46 @@
+
+#replace with your values 
+@endpoint={{$processEnv AOAI_SWEDEN_END}}
+@deploymentName=gpt-4o
+
+@api-version=2024-02-01
+
+# Service Principal credentials
+@tenantId={{$processEnv AZURE_TENANT_ID}}
+@clientId={{$processEnv AZURE_CLIENT_ID}}
+@clientSecret={{$processEnv AZURE_CLIENT_SECRET}}
+
+### 0. Get Bearer Token using Service Principal
+# @name getToken
+POST https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveservices.azure.com/.default&grant_type=client_credentials
+
+
+### 1. Image Analysis - Multimodal models (NEW) 
+POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant that helps people find information."
+        },
+        { "role": "user", "content": [  
+            { 
+                "type": "text", 
+                "text": "What stadium is in this image?" 
+            },
+            { 
+                "type": "image_url",
+                "image_url": {
+                    "url": "https://tse2.mm.bing.net/th/id/OIP.Yfhg5w1G_YjEb0YLYvjhvwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+                }
+            }
+        ] }
+        
+    ]
+}
