@@ -8,10 +8,23 @@
 
 @api-version=2024-02-01
 
+# Service Principal credentials
+@tenantId={{$processEnv AZURE_TENANT_ID}}
+@clientId={{$processEnv AZURE_CLIENT_ID}}
+@clientSecret={{$processEnv AZURE_CLIENT_SECRET}}
+
+### 0. Get Bearer Token using Service Principal
+# @name getToken
+POST https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveservices.azure.com/.default&grant_type=client_credentials
+
+
 ### 1. Function call or Tools (NEW) 
 POST  {{endpoint}}/openai/deployments/{{deploymentName}}/chat/completions?api-version={{api-version}}
 Content-Type: application/json
-api-key: {{$processEnv AOAI_SWEDEN_KEY}}
+Authorization: Bearer {{getToken.response.body.access_token}}
 
 {
     "messages": [
@@ -21,7 +34,15 @@ api-key: {{$processEnv AOAI_SWEDEN_KEY}}
         },
         {
             "role": "user",
-            "content": "what is the weather in Madrid"
+            "content": "what is the weather"
+        },
+        {
+            "role": "assistant",
+            "content": "need city"
+        },
+        {
+            "role": "user",
+            "content": "the city is seattle"
         }
     ],
     "tools": [
