@@ -1,0 +1,90 @@
+# REFERENCE DOC https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+
+#INCLUDED DEMOS
+# 1. Detect - FaceID and Face Attributes
+# 2. Verify - FaceID and FaceID
+# 3. Identify - FaceID vs PersonGroup
+  # Training done in the other file! 
+
+
+# IMAGES USED
+# 1. MIKEL OYARZABAL
+  # https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1
+  # https://s.hs-data.com/bilder/spieler/gross/290844.jpg
+# 2. MARTIN ZUBIMENDI
+  # https://th.bing.com/th/id/OIP.jbMJjsG79JtkzUhotoOnmAHaIC?rs=1&pid=ImgDetMain
+  # https://th.bing.com/th/id/R.1e8ba36e99def5f9db9e25b946f3f089?rik=LbRv%2bU38Qya5RA&pid=ImgRaw&r=0
+# 3. SATYA NADELLA  https://th.bing.com/th/id/OIP.Ue_cLPMfXZoug1uixdW_iwHaFj?rs=1&pid=ImgDetMain
+
+# Service Principal credentials
+@tenantId={{$processEnv AZURE_TENANT_ID}}
+@clientId={{$processEnv AZURE_CLIENT_ID}}
+@clientSecret={{$processEnv AZURE_CLIENT_SECRET}}
+
+### 0. Get Bearer Token using Service Principal
+# @name getToken
+POST https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveservices.azure.com/.default&grant_type=client_credentials
+
+
+### NOTE request history shows command with the used variables!
+@Endpoint={{$processEnv AIFACE_END}}
+
+-----------------
+
+### Detect - FaceID and Face Attributes
+
+@returnFaceId=true
+@returnFaceLandmarks=true
+@returnFaceAttributes=accessories,blur,exposure,glasses,headpose,noise, qualityForRecognition
+
+@recognitionModel=recognition_04
+# default 24 hours (60s to 86400s)
+@faceIdTimeToLive = 86400 
+
+@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+
+POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "url": {{imageUrl}}
+}
+
+
+### Verify - FaceID and FaceID
+
+@faceId1="68bba20a-2747-4dff-ae15-06d490dc58c1"
+@faceId2="bb873604-786a-4cf7-b674-6c006233ae24"
+
+
+POST {{Endpoint}}/face/v1.0/verify?
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "faceId1": {{faceId1}},
+  "faceId2": {{faceId2}}
+}
+
+### Identify - FaceID and PersonGroup
+
+#get one calling detect
+@faceId="bb873604-786a-4cf7-b674-6c006233ae24"
+@personGroupId=real-sociedad
+
+
+POST {{Endpoint}}/face/v1.0/identify?
+Content-Type: application/json
+Authorization: Bearer {{getToken.response.body.access_token}}
+
+{
+  "faceIds": [{{faceId}}],
+  "personGroupId": "{{personGroupId}}"
+}
+
+# MIKEL OYARZABAL - 5dba1ea2-e706-4f13-8e1e-e838689003d5
+# MARTIN ZUBIMENDI - ba9cb60d-8ff7-49e1-b037-c6a4ab80b3ad
