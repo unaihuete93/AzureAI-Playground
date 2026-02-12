@@ -44,7 +44,7 @@ client_id={{clientId}}&client_secret={{clientSecret}}&scope=https://cognitiveser
 # default 24 hours (60s to 86400s)
 @faceIdTimeToLive = 86400 
 
-@imageUrl="https://img.a.transfermarkt.technology/portrait/big/351478-1599987229.jpg?lm=1"
+@imageUrl="https://tse2.mm.bing.net/th/id/OIP.ueTQHh8NCwgRbMy6suwB0wHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
 
 POST {{Endpoint}}/face/v1.0/detect?returnFaceId={{returnFaceId}}&returnFaceLandmarks={{returnFaceLandmarks}}&returnFaceAttributes={{returnFaceAttributes}}&faceIdTimeToLive={{faceIdTimeToLive}}&recognitionModel={{recognitionModel}}
 Content-Type: application/json
@@ -57,8 +57,8 @@ Authorization: Bearer {{getToken.response.body.access_token}}
 
 ### Verify - FaceID and FaceID
 
-@faceId1="68bba20a-2747-4dff-ae15-06d490dc58c1"
-@faceId2="bb873604-786a-4cf7-b674-6c006233ae24"
+@faceId1="da5a5a4f-1407-42e7-adfa-9c8bcd3b837f"
+@faceId2="b3b22e88-bf33-4f98-99e9-211c358d430f"
 
 
 POST {{Endpoint}}/face/v1.0/verify?
@@ -73,7 +73,7 @@ Authorization: Bearer {{getToken.response.body.access_token}}
 ### Identify - FaceID and PersonGroup
 
 #get one calling detect
-@faceId="bb873604-786a-4cf7-b674-6c006233ae24"
+@faceId="da5a5a4f-1407-42e7-adfa-9c8bcd3b837f"
 @personGroupId=real-sociedad
 
 
@@ -86,5 +86,5 @@ Authorization: Bearer {{getToken.response.body.access_token}}
   "personGroupId": "{{personGroupId}}"
 }
 
-# MIKEL OYARZABAL - 5dba1ea2-e706-4f13-8e1e-e838689003d5
-# MARTIN ZUBIMENDI - ba9cb60d-8ff7-49e1-b037-c6a4ab80b3ad
+# MIKEL OYARZABAL - d7ffecf9-8170-48f8-a6e2-5ba8a0af907b
+
