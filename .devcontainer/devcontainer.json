@@ -23,7 +23,8 @@
 				"humao.rest-client",
 				"ms-dotnettools.csdevkit",
 				"ms-semantic-kernel.semantic-kernel",
-				"ms-dotnettools.dotnet-interactive-vscode"
+				"ms-dotnettools.dotnet-interactive-vscode",
+				"TeamsDevApp.vscode-ai-foundry"
 			]
 		}
 	},

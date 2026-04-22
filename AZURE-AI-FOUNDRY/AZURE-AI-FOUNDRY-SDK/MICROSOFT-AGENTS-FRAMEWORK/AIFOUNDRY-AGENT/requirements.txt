@@ -1,3 +1,0 @@
-# pip install azure-identity agent-framework
-
-### NEED TO LOGIN IN AZ CLI FIRST WITH az login
