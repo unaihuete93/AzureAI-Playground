@@ -1,0 +1,8 @@
+python-dotenv
+azure-identity
+azure-ai-projects==2.0.0b4
+aiohttp
+
+# python -m venv labenv
+# source labenv/bin/activate
+# pip install -r requirements.txt
