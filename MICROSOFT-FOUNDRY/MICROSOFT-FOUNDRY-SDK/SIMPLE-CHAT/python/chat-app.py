@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 # Add references
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
-from openai import AzureOpenAI
 
 def main(): 
 
@@ -21,14 +20,14 @@ def main():
         # Initialize the project client
         project_client = AIProjectClient(            
             credential=DefaultAzureCredential(
-                exclude_environment_credential=True,
+                exclude_environment_credential=False,
                 exclude_managed_identity_credential=True
             ),
             endpoint=project_endpoint,
         )
 
         # Get a chat client
-        openai_client = project_client.get_openai_client(api_version="2024-10-21")
+        openai_client = project_client.get_openai_client()
 
         # Initialize prompt with system message
         prompt = [
