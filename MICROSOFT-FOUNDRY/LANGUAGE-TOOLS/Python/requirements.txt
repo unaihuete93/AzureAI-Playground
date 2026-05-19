@@ -1,0 +1,5 @@
+azure-ai-textanalytics
+azure-core
+azure-identity
+
+#pip install -r requirements.txt
