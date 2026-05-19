@@ -4,5 +4,6 @@ azure-identity
 agent-framework==1.0.0b260212
 opentelemetry-semantic-conventions-ai==0.4.13
 
-#pip install -r requirements.txt
-### NEED TO LOGIN IN AZ CLI FIRST WITH az login
+# python -m venv labenv
+# source labenv/bin/activate
+# pip install -r requirements.txt

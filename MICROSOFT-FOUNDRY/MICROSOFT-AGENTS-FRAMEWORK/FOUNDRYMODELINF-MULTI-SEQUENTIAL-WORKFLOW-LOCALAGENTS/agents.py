@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from agent_framework import Message
 from agent_framework.azure import AzureAIAgentClient
 from agent_framework.orchestrations import SequentialBuilder
-from azure.identity import AzureCliCredential
+from azure.identity import DefaultAzureCredential
 
 load_dotenv()
 
@@ -31,9 +31,9 @@ async def main():
     Log as enhancement request for product backlog.
     """
 
-    # Create the chat client
-    # Create the chat client
-    credential = AzureCliCredential()
+    # Create the client
+    # Create the client
+    credential = DefaultAzureCredential()
     async with (
         AzureAIAgentClient(credential=credential) as chat_client,
     ):

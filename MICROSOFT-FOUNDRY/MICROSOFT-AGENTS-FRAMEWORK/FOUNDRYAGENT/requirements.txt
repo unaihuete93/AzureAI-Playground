@@ -1,0 +1,5 @@
+agent-framework-foundry
+azure-identity
+aiohttp
+
+#pip install -r requirements.txt

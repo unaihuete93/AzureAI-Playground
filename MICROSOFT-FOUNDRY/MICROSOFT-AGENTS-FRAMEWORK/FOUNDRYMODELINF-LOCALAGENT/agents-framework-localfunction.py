@@ -6,7 +6,7 @@ from pathlib import Path
 # Add references
 from agent_framework import tool, Agent
 from agent_framework.azure import AzureOpenAIResponsesClient
-from azure.identity import AzureCliCredential
+from azure.identity import DefaultAzureCredential
 from pydantic import Field
 from typing import Annotated
 
@@ -31,7 +31,7 @@ async def process_expenses_data(prompt, expenses_data):
 
     # Create a client and initialize an agent with the tool and instructions
     # Create a client and initialize an agent with the tool and instructions
-    credential = AzureCliCredential()
+    credential = DefaultAzureCredential()
     async with (
         Agent(
             client=AzureOpenAIResponsesClient(
@@ -65,6 +65,7 @@ def submit_claim(
     to: Annotated[str, Field(description="Who to send the email to")],
     subject: Annotated[str, Field(description="The subject of the email.")],
     body: Annotated[str, Field(description="The text body of the email.")]):
+        """Send an expense-claim email with an itemized summary and total amount."""
         print("\nTo:", to)
         print("Subject:", subject)
         print(body, "\n")
