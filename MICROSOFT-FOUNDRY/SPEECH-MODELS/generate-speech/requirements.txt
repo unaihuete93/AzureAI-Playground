@@ -1,0 +1,6 @@
+python-dotenv
+playsound3
+azure-identity
+openai
+
+#pip install -r requirements.txt
