@@ -19,7 +19,7 @@ def main():
         #endpoint=os.getenv("AI_FOUNDRY_PROJECT_END")
         endpoint="https://ai-foundryproject-may25-resource.services.ai.azure.com"
         model_deployment="tts"
-        speech_file_path = Path(__file__).parent / "speech.mp3"
+        speech_file_path = Path(__file__).parent / "speech-cheerful.mp3"
 
 
         # Create the Azure OpenAI client
@@ -41,7 +41,7 @@ def main():
                     model=model_deployment,
                     voice="alloy",
                     input="My voice is my passport!",
-                    instructions="Speak in a serious tone.",
+                    instructions="Speak in a cheerful tone",
                 ) as response:
             response.stream_to_file(speech_file_path)
 

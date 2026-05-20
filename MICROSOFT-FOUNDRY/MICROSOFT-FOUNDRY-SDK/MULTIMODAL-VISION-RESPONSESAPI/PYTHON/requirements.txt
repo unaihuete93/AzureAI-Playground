@@ -1,0 +1,5 @@
+python-dotenv
+azure-identity 
+openai
+
+#pip install -r requirements.txt
